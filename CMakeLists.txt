@@ -17,7 +17,10 @@ set(SIMPLE_SPREADSHEET_SRC src/Spreadsheet.cpp
         src/utility/Observer.cpp
         src/utility/Observer.h
         src/utility/Subject.cpp
-        src/utility/Subject.h)
+        src/utility/Subject.h
+        src/SpreadsheetCellCoordinates.cpp
+        src/SpreadsheetCellCoordinates.h
+)
 
 add_executable(${PROJECT_NAME} main.cpp
         ${SIMPLE_SPREADSHEET_SRC})
