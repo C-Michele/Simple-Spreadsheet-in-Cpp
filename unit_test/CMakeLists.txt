@@ -12,7 +12,8 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 set(UNIT_TEST_SRC runAllTests.cpp
-        SpreadsheetTests.cpp)
+        SpreadsheetTests.cpp
+        SpreadsheetCellCoordinatesTests.cpp)
 
 add_executable(runAllTests ${UNIT_TEST_SRC}
         ../src/Spreadsheet.cpp
@@ -20,7 +21,10 @@ add_executable(runAllTests ${UNIT_TEST_SRC}
         ../src/utility/Observer.cpp
         ../src/utility/Observer.h
         ../src/utility/Subject.cpp
-        ../src/utility/Subject.h)
+        ../src/utility/Subject.h
+        ../src/SpreadsheetCellCoordinates.cpp
+        ../src/SpreadsheetCellCoordinates.h
+)
 target_link_libraries(runAllTests gtest_main)
 
 target_include_directories(runAllTests
