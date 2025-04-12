@@ -2,12 +2,37 @@
 #define SPREADSHEET_H
 
 #include <cstddef>
+#include <set>
+
+#include "SpreadsheetCellCoordinates.h"
 
 class Spreadsheet {
     public:
+        enum Function {
+            max,
+            min,
+            avg,
+            sum
+        };
+
         Spreadsheet(std::size_t numberOfColumns, std::size_t numberOfRows);
         std::size_t getNumberOfColumns() const;
         std::size_t getNumberOfRows() const;
+        bool emptyCellAt(const SpreadsheetCellCoordinates& coordinates) const;
+        void deleteCellContentAt(const SpreadsheetCellCoordinates& coordinates);
+        template <typename T>
+        T getCellValueAt(const SpreadsheetCellCoordinates& coordinates) const;
+        void setValueAt(const SpreadsheetCellCoordinates& coordinates, double value);
+        void setValueAt(const SpreadsheetCellCoordinates& coordinates, uint64_t);
+        void setValueAt(const SpreadsheetCellCoordinates& coordinates, int64_t);
+        void setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value);
+        void setFunctionAt(const SpreadsheetCellCoordinates& coordinates, Function function, const std::set<SpreadsheetCellCoordinates>& functionArguments);
 };
+
+/* TODO: implementation
+template<typename T>
+T Spreadsheet::getCellValueAt(const SpreadsheetCellCoordinates& coordinates) const {
+}
+*/
 
 #endif //SPREADSHEET_H

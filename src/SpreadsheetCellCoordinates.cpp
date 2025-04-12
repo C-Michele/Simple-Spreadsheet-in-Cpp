@@ -19,3 +19,7 @@ std::size_t SpreadsheetCellCoordinates::getColumnIndexAsInteger() const {
 std::string SpreadsheetCellCoordinates::getColumnIndexAsString() const {
     return ""; //TODO: implementation
 }
+
+bool SpreadsheetCellCoordinates::operator<(const SpreadsheetCellCoordinates& toCompare) const {
+    return true; //TODO: implementation
+}
