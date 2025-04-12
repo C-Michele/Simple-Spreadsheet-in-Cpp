@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include <cstdint>
 #include <stdexcept>
+#include <forward_list>
 
 #include "../src/SpreadsheetCellCoordinates.h"
 
@@ -389,5 +390,101 @@ TEST(SpreadsheetCellCoordinates,getColumnIndexAsString_first_53_columns) {
 
         const SpreadsheetCellCoordinates BA(53,rowIndex);
         EXPECT_EQ(BA.getColumnIndexAsString(),std::string("BA"));
+    }
+}
+
+TEST(SpreadsheetCellCoordinates,minor_operator_correct_implementation) {
+    const std::size_t columnMaxIndex = 20;
+    const std::size_t rowMaxIndex = 20;
+
+    std::forward_list<SpreadsheetCellCoordinates> allCoordinatesInserted;
+
+    for (std::size_t i = 1; i <= columnMaxIndex; ++i) {
+        const auto columnIndex = i;
+        for (std::size_t j = 1; j <= rowMaxIndex; ++j) {
+            const auto rowIndex = j;
+            allCoordinatesInserted.emplace_after(allCoordinatesInserted.cbefore_begin(),columnIndex,rowIndex);
+        }
+    }
+
+    for (auto itrA = allCoordinatesInserted.cbegin(); itrA != allCoordinatesInserted.cend(); ++itrA) {
+        for (auto itrB = allCoordinatesInserted.cbegin(); itrB != allCoordinatesInserted.cend(); ++itrB) {
+            if ( itrA->getRowIndex() < itrB->getRowIndex() ) {
+                EXPECT_TRUE( *itrA < *itrB );
+            }
+            else if ( itrA->getRowIndex() == itrB->getRowIndex() ) {
+                if ( itrA->getColumnIndexAsInteger() < itrB->getColumnIndexAsInteger() ) {
+                    EXPECT_TRUE( *itrA < *itrB );
+                }
+                else {
+                    EXPECT_FALSE( *itrA < *itrB );
+                }
+            }
+            else if ( itrA->getRowIndex() > itrB->getRowIndex() ) {
+                EXPECT_FALSE( *itrA < *itrB );
+            }
+        }
+    }
+
+}
+
+TEST(SpreadsheetCellCoordinates,minor_operator_irreflexivity) {
+    const std::size_t columnMaxIndex = 20;
+    const std::size_t rowMaxIndex = 20;
+    for (std::size_t i = 1; i <= columnMaxIndex; ++i) {
+        const auto columnIndex = i;
+        for (std::size_t j = 1; j <= rowMaxIndex; ++j) {
+            const auto rowIndex = j;
+            const SpreadsheetCellCoordinates coordinates(columnIndex,rowIndex);
+            EXPECT_FALSE(coordinates < coordinates);
+        }
+    }
+}
+
+TEST(SpreadsheetCellCoordinates,minor_operator_asymmetry) {
+    const std::size_t columnMaxIndex = 20;
+    const std::size_t rowMaxIndex = 20;
+
+    std::forward_list<SpreadsheetCellCoordinates> allCoordinatesInserted;
+
+    for (std::size_t i = 1; i <= columnMaxIndex; ++i) {
+        const auto columnIndex = i;
+        for (std::size_t j = 1; j <= rowMaxIndex; ++j) {
+            const auto rowIndex = j;
+            allCoordinatesInserted.emplace_after(allCoordinatesInserted.cbefore_begin(),columnIndex,rowIndex);
+        }
+    }
+
+    for (auto itrA = allCoordinatesInserted.cbegin(); itrA != allCoordinatesInserted.cend(); ++itrA) {
+        for (auto itrB = allCoordinatesInserted.cbegin(); itrB != allCoordinatesInserted.cend(); ++itrB) {
+            if ( *itrA < *itrB ) {
+                EXPECT_FALSE( *itrB < *itrA );
+            }
+        }
+    }
+}
+
+TEST(SpreadsheetCellCoordinates,minor_operator_transitivity) {
+    const std::size_t columnMaxIndex = 20;
+    const std::size_t rowMaxIndex = 20;
+
+    std::forward_list<SpreadsheetCellCoordinates> allCoordinatesInserted;
+
+    for (std::size_t i = 1; i <= columnMaxIndex; ++i) {
+        const auto columnIndex = i;
+        for (std::size_t j = 1; j <= rowMaxIndex; ++j) {
+            const auto rowIndex = j;
+            allCoordinatesInserted.emplace_after(allCoordinatesInserted.cbefore_begin(),columnIndex,rowIndex);
+        }
+    }
+
+    for (auto itrA = allCoordinatesInserted.cbegin(); itrA != allCoordinatesInserted.cend(); ++itrA) {
+        for (auto itrB = allCoordinatesInserted.cbegin(); itrB != allCoordinatesInserted.cend(); ++itrB) {
+            for (auto itrC = allCoordinatesInserted.cbegin(); itrC != allCoordinatesInserted.cend(); ++itrC) {
+                if ( *itrA < *itrB && *itrB < *itrC ) {
+                    EXPECT_TRUE( *itrA < *itrC );
+                }
+            }
+        }
     }
 }
