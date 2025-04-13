@@ -23,8 +23,6 @@ class Spreadsheet {
         template <typename T>
         T getCellValueAt(const SpreadsheetCellCoordinates& coordinates) const;
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, double value);
-        void setValueAt(const SpreadsheetCellCoordinates& coordinates, uint64_t);
-        void setValueAt(const SpreadsheetCellCoordinates& coordinates, int64_t);
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value);
         void setFunctionAt(const SpreadsheetCellCoordinates& coordinates, Function function, const std::set<SpreadsheetCellCoordinates>& functionArguments);
 };
