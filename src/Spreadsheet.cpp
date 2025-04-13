@@ -24,14 +24,6 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, doub
     //TODO: implementation
 }
 
-void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, uint64_t) {
-    //TODO: implementation
-}
-
-void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, int64_t) {
-    //TODO: implementation
-}
-
 void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value) {
     //TODO: implementation
 }
