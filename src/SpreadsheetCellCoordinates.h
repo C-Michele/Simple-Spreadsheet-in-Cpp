@@ -13,6 +13,9 @@ class SpreadsheetCellCoordinates {
         std::string getColumnIndexAsString() const;
 
         bool operator<(const SpreadsheetCellCoordinates& toCompare) const;
+    private:
+        std::size_t columnIndex;
+        std::size_t rowIndex;
 };
 
 #endif //SPREADSHEETCELLCOORDINATES_H
