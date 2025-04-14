@@ -291,7 +291,7 @@ TEST(Spreadsheet,empty_cell_after_string_value_deletion) {
     }
 }
 
-TEST(Spredsheet,setFunctionAt__sum__invalid_argument_exception_after_circular_reference) {
+TEST(Spreadsheet,setFunctionAt__sum__invalid_argument_exception_after_circular_reference) {
     Spreadsheet spreadsheet(4,4);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
@@ -314,7 +314,7 @@ TEST(Spredsheet,setFunctionAt__sum__invalid_argument_exception_after_circular_re
     EXPECT_TRUE(exceptionThrown);
 }
 
-TEST(Spredsheet,setFunctionAt__avg__invalid_argument_exception_after_circular_reference) {
+TEST(Spreadsheet,setFunctionAt__avg__invalid_argument_exception_after_circular_reference) {
     Spreadsheet spreadsheet(4,4);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
@@ -337,7 +337,7 @@ TEST(Spredsheet,setFunctionAt__avg__invalid_argument_exception_after_circular_re
     EXPECT_TRUE(exceptionThrown);
 }
 
-TEST(Spredsheet,setFunctionAt__min__invalid_argument_exception_after_circular_reference) {
+TEST(Spreadsheet,setFunctionAt__min__invalid_argument_exception_after_circular_reference) {
     Spreadsheet spreadsheet(4,4);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
@@ -360,7 +360,7 @@ TEST(Spredsheet,setFunctionAt__min__invalid_argument_exception_after_circular_re
     EXPECT_TRUE(exceptionThrown);
 }
 
-TEST(Spredsheet,setFunctionAt__max__invalid_argument_exception_after_circular_reference) {
+TEST(Spreadsheet,setFunctionAt__max__invalid_argument_exception_after_circular_reference) {
     Spreadsheet spreadsheet(4,4);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
