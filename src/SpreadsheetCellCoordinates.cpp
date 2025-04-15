@@ -1,6 +1,7 @@
 #include "SpreadsheetCellCoordinates.h"
 
 #include <stdexcept>
+#include <cmath>
 
 SpreadsheetCellCoordinates::SpreadsheetCellCoordinates(const std::string& columnIndex, const std::size_t rowIndex) :
 SpreadsheetCellCoordinates(columnIndexConversion(columnIndex), rowIndex) {}
@@ -42,5 +43,25 @@ std::size_t SpreadsheetCellCoordinates::columnIndexConversion(const std::string&
 }
 
 std::string SpreadsheetCellCoordinates::columnIndexConversion(const std::size_t integerVersion) {
-    return std::string(""); //TODO: implementation
+    if ( integerVersion == 0 ) {
+        throw std::invalid_argument(" "); //TODO: insert error message
+    }
+    const std::size_t numberOfAlphabetLetters = 26;
+    std::string toReturn;
+    toReturn.insert(
+        0,
+        1,
+        ( integerVersion % numberOfAlphabetLetters == 0 ) ?
+        'Z' : static_cast<char>( '@' + ( integerVersion % numberOfAlphabetLetters ) )
+    );
+    std::size_t exponent = 1;
+    while ( static_cast<std::size_t>( static_cast<long double>(integerVersion-1) / std::pow(static_cast<long double>(numberOfAlphabetLetters),exponent) ) != 0 ) {
+        toReturn.insert(
+            0,
+            1,
+            static_cast<char>( '@' + static_cast<std::size_t>( static_cast<long double>(integerVersion-1) / std::pow(static_cast<long double>(numberOfAlphabetLetters),exponent) ) )
+        );
+        ++exponent;
+    }
+    return toReturn;
 }
