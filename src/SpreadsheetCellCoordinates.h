@@ -14,6 +14,9 @@ class SpreadsheetCellCoordinates {
 
         bool operator<(const SpreadsheetCellCoordinates& toCompare) const;
     private:
+        static inline std::size_t columnIndexConversion(const std::string& stringVersion);
+        static inline std::string columnIndexConversion(std::size_t integerVersion);
+
         std::size_t columnIndex;
         std::size_t rowIndex;
 };

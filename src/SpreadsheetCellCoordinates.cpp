@@ -2,9 +2,8 @@
 
 #include <stdexcept>
 
-SpreadsheetCellCoordinates::SpreadsheetCellCoordinates(const std::string& columnIndex, std::size_t rowIndex) {
-    //TODO: implementation
-}
+SpreadsheetCellCoordinates::SpreadsheetCellCoordinates(const std::string& columnIndex, const std::size_t rowIndex) :
+SpreadsheetCellCoordinates(columnIndexConversion(columnIndex), rowIndex) {}
 
 SpreadsheetCellCoordinates::SpreadsheetCellCoordinates(const std::size_t columnIndex, const std::size_t rowIndex) :
 columnIndex(columnIndex), rowIndex(rowIndex) {
@@ -22,7 +21,7 @@ std::size_t SpreadsheetCellCoordinates::getColumnIndexAsInteger() const {
 }
 
 std::string SpreadsheetCellCoordinates::getColumnIndexAsString() const {
-    return ""; //TODO: implementation
+    return columnIndexConversion(columnIndex);
 }
 
 bool SpreadsheetCellCoordinates::operator<(const SpreadsheetCellCoordinates& toCompare) const {
@@ -36,4 +35,12 @@ bool SpreadsheetCellCoordinates::operator<(const SpreadsheetCellCoordinates& toC
         return false;
     }
     return false;
+}
+
+std::size_t SpreadsheetCellCoordinates::columnIndexConversion(const std::string& stringVersion) {
+    return 0; //TODO: implementation
+}
+
+std::string SpreadsheetCellCoordinates::columnIndexConversion(const std::size_t integerVersion) {
+    return std::string(""); //TODO: implementation
 }
