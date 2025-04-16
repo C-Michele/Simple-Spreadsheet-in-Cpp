@@ -39,7 +39,22 @@ bool SpreadsheetCellCoordinates::operator<(const SpreadsheetCellCoordinates& toC
 }
 
 std::size_t SpreadsheetCellCoordinates::columnIndexConversion(const std::string& stringVersion) {
-    return 0; //TODO: implementation
+    if ( stringVersion.empty() ) {
+        throw std::invalid_argument(" "); //TODO: insert error message
+    }
+    const std::size_t numberOfAlphabetLetters = 26;
+    std::size_t toReturn = 0;
+    for (std::size_t i = 0; i < stringVersion.size(); ++i) {
+        if ( ! std::isalpha( stringVersion.at(i) ) ) {
+            throw std::invalid_argument(" "); //TODO: insert error message
+        }
+        if ( ! std::isupper( stringVersion.at(i) ) ) {
+            throw std::invalid_argument(" "); //TODO: insert error message
+        }
+        toReturn = toReturn + static_cast<std::size_t>(
+            static_cast<long double>( stringVersion.at(i) - '@' ) * std::pow(static_cast<long double>(numberOfAlphabetLetters),stringVersion.size()-1-i) );
+    }
+    return toReturn;
 }
 
 std::string SpreadsheetCellCoordinates::columnIndexConversion(const std::size_t integerVersion) {
