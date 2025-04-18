@@ -25,6 +25,12 @@ class Spreadsheet {
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, double value);
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value);
         void setFunctionAt(const SpreadsheetCellCoordinates& coordinates, Function function, const std::set<SpreadsheetCellCoordinates>& functionArguments);
+
+    private:
+        class Cell;
+        class EmptyCell;
+        class NotEmptyCell;
+        class FunctionCell;
 };
 
 /* TODO: implementation

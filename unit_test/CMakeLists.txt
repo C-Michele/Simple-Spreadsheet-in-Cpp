@@ -24,6 +24,14 @@ add_executable(runAllTests ${UNIT_TEST_SRC}
         ../src/utility/Subject.h
         ../src/SpreadsheetCellCoordinates.cpp
         ../src/SpreadsheetCellCoordinates.h
+        ../src/SpreadsheetCell.cpp
+        ../src/SpreadsheetCell.h
+        ../src/SpreadsheetEmptyCell.cpp
+        ../src/SpreadsheetEmptyCell.h
+        ../src/SpreadsheetNotEmptyCell.cpp
+        ../src/SpreadsheetNotEmptyCell.h
+        ../src/SpreadsheetFunctionCell.cpp
+        ../src/SpreadsheetFunctionCell.h
 )
 target_link_libraries(runAllTests gtest_main)
 

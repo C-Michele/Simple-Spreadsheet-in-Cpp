@@ -20,6 +20,14 @@ set(SIMPLE_SPREADSHEET_SRC src/Spreadsheet.cpp
         src/utility/Subject.h
         src/SpreadsheetCellCoordinates.cpp
         src/SpreadsheetCellCoordinates.h
+        src/SpreadsheetCell.cpp
+        src/SpreadsheetCell.h
+        src/SpreadsheetEmptyCell.cpp
+        src/SpreadsheetEmptyCell.h
+        src/SpreadsheetNotEmptyCell.cpp
+        src/SpreadsheetNotEmptyCell.h
+        src/SpreadsheetFunctionCell.cpp
+        src/SpreadsheetFunctionCell.h
 )
 
 add_executable(${PROJECT_NAME} main.cpp
