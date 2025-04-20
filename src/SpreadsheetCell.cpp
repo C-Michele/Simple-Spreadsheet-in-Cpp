@@ -29,12 +29,13 @@ void Spreadsheet::Cell::addObserver(Observer* const observer) {
             throw std::invalid_argument(" "); //TODO: add error message
         }
     }
-    functionCellsObservers.emplace(convertedPointer);
-    try {
-        convertedPointer->addArgument(this);
-    }
-    catch (...) {
-        functionCellsObservers.erase(convertedPointer);
+    if ( (functionCellsObservers.emplace(convertedPointer)).second ) { //This if prevent a circle infinite loop with addArgument method
+        try {
+            convertedPointer->addArgument(this);
+        }
+        catch (...) {
+            functionCellsObservers.erase(convertedPointer);
+        }
     }
 }
 

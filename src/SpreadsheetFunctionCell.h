@@ -7,7 +7,7 @@
 
 class Spreadsheet::FunctionCell : public Spreadsheet::NotEmptyCell, public Observer {
     public:
-        virtual ~FunctionCell() = default;
+        virtual ~FunctionCell();
         virtual Spreadsheet::Function getFunction() const = 0;
         void addArgument(Spreadsheet::Cell* argumentToAdd);
         void removeArgument(Spreadsheet::Cell* argumentToRemove);
