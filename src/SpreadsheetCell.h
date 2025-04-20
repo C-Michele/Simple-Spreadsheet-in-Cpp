@@ -6,7 +6,7 @@
 #include "Spreadsheet.h"
 #include "utility/Subject.h"
 
-class Spreadsheet::Cell : public Subject {
+class Spreadsheet::Cell : public virtual Subject {
     public:
         virtual ~Cell();
         virtual bool isEmpty() const = 0;

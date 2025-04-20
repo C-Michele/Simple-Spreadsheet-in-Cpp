@@ -8,6 +8,16 @@ Spreadsheet::FunctionCell::~FunctionCell() {
     }
 }
 
+Spreadsheet::FunctionCell::FunctionCell(Spreadsheet::Cell* const argument) {
+    addArgument(argument);
+}
+
+Spreadsheet::FunctionCell::FunctionCell(const std::set<Spreadsheet::Cell*>& args) {
+    for (auto itr = args.cbegin(); itr != args.cend(); ++itr ) {
+        addArgument(*itr);
+    }
+}
+
 void Spreadsheet::FunctionCell::addArgument(Spreadsheet::Cell* const argumentToAdd) {
     if ( argumentToAdd != nullptr ) {
         if ( dynamic_cast<Spreadsheet::FunctionCell*>(argumentToAdd) != nullptr ) {

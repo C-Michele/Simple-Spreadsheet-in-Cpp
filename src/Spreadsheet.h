@@ -31,6 +31,12 @@ class Spreadsheet {
         class EmptyCell;
         class NotEmptyCell;
         class FunctionCell;
+        class NumericCell;
+        class NumericFunctionCell;
+
+        class RawTextualCell;
+        class RawNumericCell;
+        class SumCell;
 };
 
 /* TODO: implementation

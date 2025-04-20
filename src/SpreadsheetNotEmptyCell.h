@@ -7,7 +7,7 @@
 class Spreadsheet::NotEmptyCell : public Spreadsheet::Cell {
     public:
         virtual ~NotEmptyCell() = default;
-        virtual bool isEmpty() const;
+        virtual bool isEmpty() const final;
 };
 
 #endif //SPREADSHEETNOTEMPTYCELL_H

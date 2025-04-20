@@ -32,6 +32,16 @@ add_executable(runAllTests ${UNIT_TEST_SRC}
         ../src/SpreadsheetNotEmptyCell.h
         ../src/SpreadsheetFunctionCell.cpp
         ../src/SpreadsheetFunctionCell.h
+        ../src/SpreadsheetNumericCell.cpp
+        ../src/SpreadsheetNumericCell.h
+        ../src/SpreadsheetRawTextualCell.cpp
+        ../src/SpreadsheetRawTextualCell.h
+        ../src/SpreadsheetRawNumericCell.cpp
+        ../src/SpreadsheetRawNumericCell.h
+        ../src/SpreadsheetNumericFunctionCell.cpp
+        ../src/SpreadsheetNumericFunctionCell.h
+        ../src/SpreadsheetSumCell.cpp
+        ../src/SpreadsheetSumCell.h
 )
 target_link_libraries(runAllTests gtest_main)
 
