@@ -2,6 +2,12 @@
 
 #include "SpreadsheetFunctionCell.h"
 
+Spreadsheet::FunctionCell::~FunctionCell() {
+    for (auto itr = cellsArguments.begin(); itr != cellsArguments.end(); ++itr ) {
+        (*itr)->removeObserver(this);
+    }
+}
+
 void Spreadsheet::FunctionCell::addArgument(Spreadsheet::Cell* const argumentToAdd) {
     if ( argumentToAdd != nullptr ) {
         if ( dynamic_cast<Spreadsheet::FunctionCell*>(argumentToAdd) != nullptr ) {
@@ -10,26 +16,29 @@ void Spreadsheet::FunctionCell::addArgument(Spreadsheet::Cell* const argumentToA
                 throw std::invalid_argument(" "); //TODO: add error message
             }
         }
-        cellsArguments.emplace(argumentToAdd);
-        bool exceptionThrown = false;
-        try {
-            argumentToAdd->addObserver(this);
-        }
-        catch (...) {
-            exceptionThrown = true;
-        }
-        if (exceptionThrown) {
-            cellsArguments.erase(argumentToAdd);
-        }
-        else {
-            this->update();
+        if ( (cellsArguments.emplace(argumentToAdd)).second ) { //This if prevent a circle infinite loop with addObserver method
+            bool exceptionThrown = false;
+            try {
+                argumentToAdd->addObserver(this);
+            }
+            catch (...) {
+                exceptionThrown = true;
+            }
+            if (exceptionThrown) {
+                cellsArguments.erase(argumentToAdd);
+            }
+            else {
+                this->update();
+            }
         }
     }
 }
 
 void Spreadsheet::FunctionCell::removeArgument(Spreadsheet::Cell* const argumentToRemove) {
-    cellsArguments.erase(argumentToRemove);
-    this->update();
+    if ( cellsArguments.erase(argumentToRemove) == 1 && argumentToRemove != nullptr ) {
+        argumentToRemove->removeObserver(this);
+        this->update();
+    }
 }
 
 std::set<Spreadsheet::Cell*> Spreadsheet::FunctionCell::getArguments() const {
