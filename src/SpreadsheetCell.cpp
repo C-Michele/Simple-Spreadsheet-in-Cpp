@@ -6,7 +6,7 @@
 
 Spreadsheet::Cell::~Cell() {
     for ( auto itr = functionCellsObservers.begin(); itr != functionCellsObservers.end(); ++itr ) {
-        (*itr)->removeArgument(this);
+        (*itr)->removeArgument(this); //TODO: check the correctness of this line
     }
 }
 
