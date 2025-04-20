@@ -45,8 +45,9 @@ void Spreadsheet::Cell::removeObserver(Observer* const observer) {
         // The object pointed from the 'observer' pointer must be a Spreadsheet::FunctionCell object (or derived)
         throw std::invalid_argument(" "); //TODO: add error message
     }
-    functionCellsObservers.erase(convertedPointer);
-    convertedPointer->removeArgument(this);
+    if ( functionCellsObservers.erase(convertedPointer) == 1 ) { //This if prevent a circle infinite loop with removeArgument method
+        convertedPointer->removeArgument(this);
+    }
 }
 
 

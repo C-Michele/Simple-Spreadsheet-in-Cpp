@@ -35,7 +35,7 @@ void Spreadsheet::FunctionCell::addArgument(Spreadsheet::Cell* const argumentToA
 }
 
 void Spreadsheet::FunctionCell::removeArgument(Spreadsheet::Cell* const argumentToRemove) {
-    if ( cellsArguments.erase(argumentToRemove) == 1 && argumentToRemove != nullptr ) {
+    if ( cellsArguments.erase(argumentToRemove) == 1 && argumentToRemove != nullptr ) { //This if prevent a circle infinite loop with removeObserver method
         argumentToRemove->removeObserver(this);
         this->update();
     }
