@@ -3,6 +3,8 @@
 
 #include <cstddef>
 #include <set>
+#include <vector>
+#include <memory>
 
 #include "SpreadsheetCellCoordinates.h"
 
@@ -37,6 +39,8 @@ class Spreadsheet {
         class RawTextualCell;
         class RawNumericCell;
         class SumCell;
+
+        std::vector<std::vector<std::unique_ptr<Cell>>> cells;
 };
 
 /* TODO: implementation
