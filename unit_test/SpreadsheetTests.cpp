@@ -5,6 +5,7 @@
 
 #include "../src/Spreadsheet.h"
 #include "../src/SpreadsheetAllCellsDefinitions.h"
+/* The last include should not be necessary: TODO:: reorganize the code */
 
 TEST(Spreadsheet,getNumberOfColumns) {
     const std::size_t numberOfColumnsMax = 20;
