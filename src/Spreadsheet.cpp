@@ -1,4 +1,5 @@
 #include "Spreadsheet.h"
+#include "SpreadsheetAllCellsDefinitions.h"
 
 Spreadsheet::Spreadsheet(std::size_t numberOfColumns, std::size_t numberOfRows) {
     //TODO: implementation

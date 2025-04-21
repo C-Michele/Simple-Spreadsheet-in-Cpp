@@ -4,6 +4,7 @@
 #include <string>
 
 #include "../src/Spreadsheet.h"
+#include "../src/SpreadsheetAllCellsDefinitions.h"
 
 TEST(Spreadsheet,getNumberOfColumns) {
     const std::size_t numberOfColumnsMax = 20;
