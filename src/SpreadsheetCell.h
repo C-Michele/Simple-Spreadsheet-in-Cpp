@@ -2,20 +2,25 @@
 #define SPREADSHEETCELL_H
 
 #include <set>
+#include <string>
 
-#include "Spreadsheet.h"
 #include "utility/Subject.h"
+#include "utility/Observer.h"
 
-class Spreadsheet::Cell : public virtual Subject {
+class SpreadsheetCell : public virtual Subject {
     public:
-        virtual ~Cell();
+        virtual ~SpreadsheetCell();
+
         virtual bool isEmpty() const = 0;
         virtual std::string getAsText() const = 0;
+
         virtual void notify() override final;
         virtual void addObserver(Observer* observer) override final;
         virtual void removeObserver(Observer* observer) override final;
     private:
-        std::set<Spreadsheet::FunctionCell*> functionCellsObservers;
+        std::set<Observer*> functionCellsObservers;
 };
+
+
 
 #endif //SPREADSHEETCELL_H

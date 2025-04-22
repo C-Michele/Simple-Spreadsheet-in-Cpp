@@ -1,12 +1,16 @@
+//
+// Created by michele on 22/04/25.
+//
+
 #include "SpreadsheetRawNumericCell.h"
 
-Spreadsheet::RawNumericCell::RawNumericCell(double value) : cellValue(value) {}
+SpreadsheetRawNumericCell::SpreadsheetRawNumericCell(double const value) : cellValue(value) {}
 
-double Spreadsheet::RawNumericCell::getAsNumericValue() const {
+double SpreadsheetRawNumericCell::getAsNumericValue() const {
     return cellValue;
 }
 
-void Spreadsheet::RawNumericCell::setNumericValue(double value) {
+void SpreadsheetRawNumericCell::setNumericValue(double const value) {
     cellValue = value;
     this->notify();
 }

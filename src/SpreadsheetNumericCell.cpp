@@ -1,5 +1,5 @@
 #include "SpreadsheetNumericCell.h"
 
-std::string Spreadsheet::NumericCell::getAsText() const {
+std::string SpreadsheetNumericCell::getAsText() const {
     return std::to_string(getAsNumericValue());
 }

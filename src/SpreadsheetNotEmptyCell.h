@@ -1,13 +1,14 @@
 #ifndef SPREADSHEETNOTEMPTYCELL_H
 #define SPREADSHEETNOTEMPTYCELL_H
 
-#include "Spreadsheet.h"
 #include "SpreadsheetCell.h"
 
-class Spreadsheet::NotEmptyCell : public Spreadsheet::Cell {
+class SpreadsheetNotEmptyCell : public SpreadsheetCell {
     public:
-        virtual ~NotEmptyCell() = default;
-        virtual bool isEmpty() const final;
+        virtual ~SpreadsheetNotEmptyCell() = default;
+        virtual bool isEmpty() const override final;
 };
+
+
 
 #endif //SPREADSHEETNOTEMPTYCELL_H

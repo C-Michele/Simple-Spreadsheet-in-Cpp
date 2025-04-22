@@ -1,7 +1,5 @@
 #include "SpreadsheetNumericFunctionCell.h"
 
-Spreadsheet::NumericFunctionCell::NumericFunctionCell() : Spreadsheet::FunctionCell() {}
+SpreadsheetNumericFunctionCell::SpreadsheetNumericFunctionCell(SpreadsheetCell* const argument) : SpreadsheetFunctionCell(argument) {}
 
-Spreadsheet::NumericFunctionCell::NumericFunctionCell(Spreadsheet::Cell* const argument) : Spreadsheet::FunctionCell(argument) {}
-
-Spreadsheet::NumericFunctionCell::NumericFunctionCell(const std::set<Spreadsheet::Cell*>& args) : Spreadsheet::FunctionCell(args) {}
+SpreadsheetNumericFunctionCell::SpreadsheetNumericFunctionCell(const std::set<SpreadsheetCell*>& args) : SpreadsheetFunctionCell(args) {}

@@ -1,22 +1,29 @@
 #ifndef SPREADSHEETFUNCTIONCELL_H
 #define SPREADSHEETFUNCTIONCELL_H
 
+#include <set>
+
 #include "Spreadsheet.h"
 #include "SpreadsheetNotEmptyCell.h"
 #include "utility/Observer.h"
 
-class Spreadsheet::FunctionCell : public virtual Spreadsheet::NotEmptyCell, public virtual Observer {
+class SpreadsheetFunctionCell : public virtual SpreadsheetNotEmptyCell, public virtual Observer {
     public:
-        virtual ~FunctionCell();
-        FunctionCell() = default;
-        FunctionCell(Spreadsheet::Cell* argument);
-        FunctionCell(const std::set<Spreadsheet::Cell*>& args);
+        SpreadsheetFunctionCell() = default;
+        SpreadsheetFunctionCell(SpreadsheetCell* argument);
+        SpreadsheetFunctionCell(const std::set<SpreadsheetCell*>& args);
+
+        virtual ~SpreadsheetFunctionCell();
+
         virtual Spreadsheet::Function getFunction() const = 0;
-        void addArgument(Spreadsheet::Cell* argumentToAdd);
-        void removeArgument(Spreadsheet::Cell* argumentToRemove);
-        std::set<Spreadsheet::Cell*> getArguments() const;
+        std::set<SpreadsheetCell*> getArguments() const;
+
+        void addArgument(SpreadsheetCell* argumentToAdd);
+        void removeArgument(SpreadsheetCell* argumentToRemove);
     private:
-        std::set<Spreadsheet::Cell*> cellsArguments;
+        std::set<SpreadsheetCell*> cellsArguments;
 };
+
+
 
 #endif //SPREADSHEETFUNCTIONCELL_H

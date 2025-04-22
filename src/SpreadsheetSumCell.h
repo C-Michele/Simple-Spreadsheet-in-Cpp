@@ -4,17 +4,22 @@
 #include "Spreadsheet.h"
 #include "SpreadsheetNumericFunctionCell.h"
 
-class Spreadsheet::SumCell final : public Spreadsheet::NumericFunctionCell {
+class SpreadsheetSumCell final : public SpreadsheetNumericFunctionCell {
     public:
-        virtual ~SumCell() = default;
-        SumCell();
-        SumCell(Spreadsheet::Cell* argument);
-        SumCell(const std::set<Spreadsheet::Cell*>& args);
-        virtual void update() override;
-        virtual double getAsNumericValue() const override;
+        SpreadsheetSumCell() = default;
+        SpreadsheetSumCell(SpreadsheetCell* argument);
+        SpreadsheetSumCell(const std::set<SpreadsheetCell*>& args);
+
+        virtual ~SpreadsheetSumCell() = default;
+
         virtual Spreadsheet::Function getFunction() const override;
+        virtual double getAsNumericValue() const override;
+
+        virtual void update() override;
     private:
         double sumResult;
 };
+
+
 
 #endif //SPREADSHEETSUMCELL_H

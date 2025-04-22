@@ -1,17 +1,21 @@
 #ifndef SPREADSHEETRAWNUMERICCELL_H
 #define SPREADSHEETRAWNUMERICCELL_H
 
-#include "Spreadsheet.h"
 #include "SpreadsheetNumericCell.h"
 
-class Spreadsheet::RawNumericCell final : public Spreadsheet::NumericCell {
+class SpreadsheetRawNumericCell final : public SpreadsheetNumericCell {
     public:
-        virtual ~RawNumericCell() = default;
-        RawNumericCell(double value);
+        SpreadsheetRawNumericCell(double value);
+
+        virtual ~SpreadsheetRawNumericCell() = default;
+
         virtual double getAsNumericValue() const override;
+
         void setNumericValue(double value);
     private:
         double cellValue;
 };
+
+
 
 #endif //SPREADSHEETRAWNUMERICCELL_H

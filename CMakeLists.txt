@@ -30,15 +30,14 @@ set(SIMPLE_SPREADSHEET_SRC src/Spreadsheet.cpp
         src/SpreadsheetFunctionCell.h
         src/SpreadsheetNumericCell.cpp
         src/SpreadsheetNumericCell.h
-        src/SpreadsheetRawTextualCell.cpp
-        src/SpreadsheetRawTextualCell.h
-        src/SpreadsheetRawNumericCell.cpp
-        src/SpreadsheetRawNumericCell.h
         src/SpreadsheetNumericFunctionCell.cpp
         src/SpreadsheetNumericFunctionCell.h
+        src/SpreadsheetRawNumericCell.cpp
+        src/SpreadsheetRawNumericCell.h
+        src/SpreadsheetRawTextualCell.cpp
+        src/SpreadsheetRawTextualCell.h
         src/SpreadsheetSumCell.cpp
         src/SpreadsheetSumCell.h
-        src/SpreadsheetAllCellsDefinitions.h
 )
 
 add_executable(${PROJECT_NAME} main.cpp

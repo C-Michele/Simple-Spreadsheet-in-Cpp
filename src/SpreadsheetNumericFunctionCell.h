@@ -1,16 +1,17 @@
 #ifndef SPREADSHEETNUMERICFUNCTIONCELL_H
 #define SPREADSHEETNUMERICFUNCTIONCELL_H
 
-#include "Spreadsheet.h"
-#include "SpreadsheetNumericCell.h"
+#include "SpreadsheetCell.h"
 #include "SpreadsheetFunctionCell.h"
+#include "SpreadsheetNumericCell.h"
 
-class Spreadsheet::NumericFunctionCell : public Spreadsheet::NumericCell, public Spreadsheet::FunctionCell {
+class SpreadsheetNumericFunctionCell : public SpreadsheetNumericCell, public SpreadsheetFunctionCell {
     public:
-        virtual ~NumericFunctionCell() = default;
-        NumericFunctionCell();
-        NumericFunctionCell(Spreadsheet::Cell* argument);
-        NumericFunctionCell(const std::set<Spreadsheet::Cell*>& args);
+        SpreadsheetNumericFunctionCell() = default;
+        SpreadsheetNumericFunctionCell(SpreadsheetCell* argument);
+        SpreadsheetNumericFunctionCell(const std::set<SpreadsheetCell*>& args);
+
+        virtual ~SpreadsheetNumericFunctionCell() = default;
 };
 
 #endif //SPREADSHEETNUMERICFUNCTIONCELL_H
