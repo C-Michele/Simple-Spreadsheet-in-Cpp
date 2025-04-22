@@ -1,9 +1,9 @@
 #include "SpreadsheetEmptyCell.h"
 
-std::string Spreadsheet::EmptyCell::getAsText() const {
-    return "";
+bool SpreadsheetEmptyCell::isEmpty() const {
+    return true;
 }
 
-bool Spreadsheet::EmptyCell::isEmpty() const {
-    return true;
+std::string SpreadsheetEmptyCell::getAsText() const {
+    return "";
 }

@@ -1,5 +1,5 @@
 #include "SpreadsheetNotEmptyCell.h"
 
-bool Spreadsheet::NotEmptyCell::isEmpty() const {
+bool SpreadsheetNotEmptyCell::isEmpty() const {
     return false;
 }

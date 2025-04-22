@@ -3,10 +3,9 @@
 
 #include <cstddef>
 #include <set>
-#include <vector>
-#include <memory>
 
 #include "SpreadsheetCellCoordinates.h"
+#include "SpreadsheetCell.h"
 
 class Spreadsheet {
     public:
@@ -29,18 +28,6 @@ class Spreadsheet {
         void setFunctionAt(const SpreadsheetCellCoordinates& coordinates, Function function, const std::set<SpreadsheetCellCoordinates>& functionArguments);
 
     private:
-        class Cell;
-        class EmptyCell;
-        class NotEmptyCell;
-        class FunctionCell;
-        class NumericCell;
-        class NumericFunctionCell;
-
-        class RawTextualCell;
-        class RawNumericCell;
-        class SumCell;
-
-        std::vector<std::vector<std::unique_ptr<Cell>>> cells;
 };
 
 /* TODO: implementation

@@ -1,28 +1,28 @@
-#include "SpreadsheetSumCell.h"
+#include "SpreadsheetCell.h"
+#include "SpreadsheetNumericCell.h"
 #include "SpreadsheetNumericFunctionCell.h"
+#include "SpreadsheetSumCell.h"
 
-Spreadsheet::SumCell::SumCell() : Spreadsheet::NumericFunctionCell() {}
+SpreadsheetSumCell::SpreadsheetSumCell(SpreadsheetCell* const argument) : SpreadsheetNumericFunctionCell(argument) {}
 
-Spreadsheet::SumCell::SumCell(Spreadsheet::Cell* const argument) : Spreadsheet::NumericFunctionCell(argument) {}
+SpreadsheetSumCell::SpreadsheetSumCell(const std::set<SpreadsheetCell*>& args) : SpreadsheetNumericFunctionCell(args) {}
 
-Spreadsheet::SumCell::SumCell(const std::set<Spreadsheet::Cell*>& args) : Spreadsheet::NumericFunctionCell(args) {}
+Spreadsheet::Function SpreadsheetSumCell::getFunction() const {
+    return Spreadsheet::Function::sum;
+}
 
-void Spreadsheet::SumCell::update() {
+double SpreadsheetSumCell::getAsNumericValue() const {
+    return sumResult;
+}
+
+void SpreadsheetSumCell::update() {
     const auto cellsArguments = getArguments();
     double newSumResult = 0;
     for (auto itr = cellsArguments.cbegin(); itr != cellsArguments.cend(); ++itr ) {
-        Spreadsheet::NumericCell* const convertedPointer = dynamic_cast<Spreadsheet::NumericCell*>((*itr));
+        SpreadsheetNumericCell* const convertedPointer = dynamic_cast<SpreadsheetNumericCell*>((*itr));
         if ( convertedPointer != nullptr) {
             newSumResult = newSumResult + convertedPointer->getAsNumericValue();
         }
     }
     sumResult = newSumResult;
-}
-
-double Spreadsheet::SumCell::getAsNumericValue() const {
-    return sumResult;
-}
-
-Spreadsheet::Function Spreadsheet::SumCell::getFunction() const {
-    return Spreadsheet::Function::sum;
 }
