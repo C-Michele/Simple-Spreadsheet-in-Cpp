@@ -95,3 +95,24 @@ TEST(SpreadsheetSumCell,observer_behavior_with_a_cell_change) {
         ASSERT_EQ(convertedPointer->getAsNumericValue(),11);
     }
 }
+
+TEST(SpreadsheetSumCell,getArguments) {
+    SpreadsheetSumCell sumCell;
+    SpreadsheetFunctionCell* const convertedPointer = dynamic_cast<SpreadsheetFunctionCell*>(&sumCell);
+    if (convertedPointer!=nullptr) {
+        ASSERT_TRUE( ( convertedPointer->getArguments() ).empty() );
+    }
+    SpreadsheetRawNumericCell rawNumericCellA(73);
+    sumCell.addArgument(&rawNumericCellA);
+    if (convertedPointer!=nullptr) {
+        ASSERT_EQ( ( convertedPointer->getArguments() ).size() , 1 );
+        ASSERT_EQ( *( ( convertedPointer->getArguments() ).find( &rawNumericCellA ) ) , &rawNumericCellA );
+    }
+    SpreadsheetRawNumericCell rawNumericCellB(20);
+    sumCell.addArgument(&rawNumericCellB);
+    if (convertedPointer!=nullptr) {
+        ASSERT_EQ( ( convertedPointer->getArguments() ).size() , 2 );
+        ASSERT_EQ( *( ( convertedPointer->getArguments() ).find( &rawNumericCellA ) ) , &rawNumericCellA );
+        ASSERT_EQ( *( ( convertedPointer->getArguments() ).find( &rawNumericCellB ) ) , &rawNumericCellB );
+    }
+}
