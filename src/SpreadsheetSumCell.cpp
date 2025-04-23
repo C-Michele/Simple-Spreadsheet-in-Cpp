@@ -22,6 +22,7 @@ double SpreadsheetSumCell::getAsNumericValue() const {
 }
 
 void SpreadsheetSumCell::update() {
+    const double oldSumResult = sumResult;
     const auto cellsArguments = getArguments();
     double newSumResult = 0;
     for (auto itr = cellsArguments.cbegin(); itr != cellsArguments.cend(); ++itr ) {
@@ -31,4 +32,7 @@ void SpreadsheetSumCell::update() {
         }
     }
     sumResult = newSumResult;
+    if (sumResult != oldSumResult) {
+        this->notify();
+    }
 }
