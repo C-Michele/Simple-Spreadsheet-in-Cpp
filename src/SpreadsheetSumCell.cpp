@@ -3,9 +3,15 @@
 #include "SpreadsheetNumericFunctionCell.h"
 #include "SpreadsheetSumCell.h"
 
-SpreadsheetSumCell::SpreadsheetSumCell(SpreadsheetCell* const argument) : SpreadsheetNumericFunctionCell(argument) {}
+SpreadsheetSumCell::SpreadsheetSumCell() : sumResult(0) {}
 
-SpreadsheetSumCell::SpreadsheetSumCell(const std::set<SpreadsheetCell*>& args) : SpreadsheetNumericFunctionCell(args) {}
+SpreadsheetSumCell::SpreadsheetSumCell(SpreadsheetCell* const argument) : SpreadsheetNumericFunctionCell(argument), sumResult(0) {
+    update();
+}
+
+SpreadsheetSumCell::SpreadsheetSumCell(const std::set<SpreadsheetCell*>& args) : SpreadsheetNumericFunctionCell(args), sumResult(0) {
+    update();
+}
 
 Spreadsheet::Function SpreadsheetSumCell::getFunction() const {
     return Spreadsheet::Function::sum;

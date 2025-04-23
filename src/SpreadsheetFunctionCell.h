@@ -21,6 +21,8 @@ class SpreadsheetFunctionCell : public virtual SpreadsheetNotEmptyCell, public v
         void addArgument(SpreadsheetCell* argumentToAdd);
         void removeArgument(SpreadsheetCell* argumentToRemove);
     private:
+        void addArgumentWithoutUpdate(SpreadsheetCell* argumentToAdd);
+        void removeArgumentWithoutUpdate(SpreadsheetCell* argumentToRemove);
         std::set<SpreadsheetCell*> cellsArguments;
 };
 

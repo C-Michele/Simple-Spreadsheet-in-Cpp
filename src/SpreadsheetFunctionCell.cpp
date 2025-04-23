@@ -4,18 +4,18 @@
 #include <stdexcept>
 
 SpreadsheetFunctionCell::SpreadsheetFunctionCell(SpreadsheetCell* const argument) {
-    addArgument(argument);
+    addArgumentWithoutUpdate(argument); // It is the responsibility of the constructors of classes derived from this one to call the "update()" method.
 }
 
 SpreadsheetFunctionCell::SpreadsheetFunctionCell(const std::set<SpreadsheetCell*>& args) {
     for (auto itr = args.cbegin(); itr != args.cend(); ++itr ) {
-        addArgument(*itr);
+        addArgumentWithoutUpdate(*itr); // It is the responsibility of the constructors of classes derived from this one to call the "update()" method.
     }
 }
 
 SpreadsheetFunctionCell::~SpreadsheetFunctionCell() {
-    for (auto itr = cellsArguments.begin(); itr != cellsArguments.end(); ++itr ) {
-        (*itr)->removeObserver(this);
+    while (!cellsArguments.empty()) {
+        removeArgumentWithoutUpdate(*(cellsArguments.begin()));
     }
 }
 
@@ -32,19 +32,14 @@ void SpreadsheetFunctionCell::addArgument(SpreadsheetCell* const argumentToAdd) 
             }
         }
         if ( (cellsArguments.emplace(argumentToAdd)).second ) { //This if prevent a circle infinite loop with addObserver method
-            bool exceptionThrown = false;
             try {
                 argumentToAdd->addObserver(this);
             }
             catch (...) {
-                exceptionThrown = true;
-            }
-            if (exceptionThrown) {
                 cellsArguments.erase(argumentToAdd);
+                throw std::runtime_error(" "); // TODO: add error message
             }
-            else {
-                this->update();
-            }
+            this->update();
         }
     }
 }
@@ -53,5 +48,31 @@ void SpreadsheetFunctionCell::removeArgument(SpreadsheetCell* const argumentToRe
     if ( cellsArguments.erase(argumentToRemove) == 1 && argumentToRemove != nullptr ) { //This if prevent a circle infinite loop with removeObserver method
         argumentToRemove->removeObserver(this);
         this->update();
+    }
+}
+
+void SpreadsheetFunctionCell::addArgumentWithoutUpdate(SpreadsheetCell* const argumentToAdd) {
+    if ( argumentToAdd != nullptr ) {
+        if ( dynamic_cast<SpreadsheetFunctionCell*>(argumentToAdd) != nullptr ) {
+            if (dynamic_cast<SpreadsheetFunctionCell*>(argumentToAdd) == dynamic_cast<SpreadsheetFunctionCell*>(this) ) {
+                // This prevents the circular reference of a cell
+                throw std::invalid_argument(" "); //TODO: add error message
+            }
+        }
+        if ( (cellsArguments.emplace(argumentToAdd)).second ) { //This if prevent a circle infinite loop with addObserver method
+            try {
+                argumentToAdd->addObserver(this);
+            }
+            catch (...) {
+                cellsArguments.erase(argumentToAdd);
+                throw std::runtime_error(" "); // TODO: add error message
+            }
+        }
+    }
+}
+
+void SpreadsheetFunctionCell::removeArgumentWithoutUpdate(SpreadsheetCell* const argumentToRemove) {
+    if ( cellsArguments.erase(argumentToRemove) == 1 && argumentToRemove != nullptr ) { //This if prevent a circle infinite loop with removeObserver method
+        argumentToRemove->removeObserver(this);
     }
 }
