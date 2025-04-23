@@ -7,6 +7,7 @@
 
 class SpreadsheetRawTextualCell final : public SpreadsheetNotEmptyCell {
     public:
+        SpreadsheetRawTextualCell() = delete;
         SpreadsheetRawTextualCell(const std::string& text);
 
         virtual ~SpreadsheetRawTextualCell() = default;

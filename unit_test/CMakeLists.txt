@@ -13,7 +13,11 @@ FetchContent_MakeAvailable(googletest)
 
 set(UNIT_TEST_SRC runAllTests.cpp
         SpreadsheetTests.cpp
-        SpreadsheetCellCoordinatesTests.cpp)
+        SpreadsheetCellCoordinatesTests.cpp
+        SpreadsheetRawNumericCellTests.cpp
+        SpreadsheetRawTextualCell.cpp
+        SpreadsheetEmptyCellTests.cpp
+)
 
 add_executable(runAllTests ${UNIT_TEST_SRC}
         ../src/Spreadsheet.cpp

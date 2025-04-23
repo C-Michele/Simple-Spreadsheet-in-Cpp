@@ -5,6 +5,7 @@
 
 class SpreadsheetRawNumericCell final : public SpreadsheetNumericCell {
     public:
+        SpreadsheetRawNumericCell() = delete;
         SpreadsheetRawNumericCell(double value);
 
         virtual ~SpreadsheetRawNumericCell() = default;
