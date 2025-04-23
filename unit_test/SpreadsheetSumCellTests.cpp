@@ -1,6 +1,8 @@
 #include "SpreadsheetRawNumericCell.h"
 #include "gtest/gtest.h"
 
+#include <memory>
+
 #include "../src/SpreadsheetCell.h"
 #include "../src/SpreadsheetEmptyCell.h"
 #include "../src/SpreadsheetNotEmptyCell.h"
@@ -114,5 +116,19 @@ TEST(SpreadsheetSumCell,getArguments) {
         ASSERT_EQ( ( convertedPointer->getArguments() ).size() , 2 );
         ASSERT_EQ( *( ( convertedPointer->getArguments() ).find( &rawNumericCellA ) ) , &rawNumericCellA );
         ASSERT_EQ( *( ( convertedPointer->getArguments() ).find( &rawNumericCellB ) ) , &rawNumericCellB );
+    }
+}
+
+TEST(SpreadsheetSumCell,observer_behavior_with_cell_deletion) {
+    SpreadsheetSumCell sumCell;
+    SpreadsheetRawNumericCell rawNumericCellA(73);
+    sumCell.addArgument(&rawNumericCellA);
+    if (true) {
+        SpreadsheetRawNumericCell rawNumericCellB(27);
+        sumCell.addArgument(&rawNumericCellB);
+    }
+    SpreadsheetNumericCell* const convertedPointer = dynamic_cast<SpreadsheetNumericCell*>(&sumCell);
+    if (convertedPointer!=nullptr) {
+        ASSERT_EQ(convertedPointer->getAsNumericValue(),73);
     }
 }
