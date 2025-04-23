@@ -4,8 +4,8 @@
 #include "SpreadsheetFunctionCell.h"
 
 SpreadsheetCell::~SpreadsheetCell() {
-    for ( auto itr = functionCellsObservers.begin(); itr != functionCellsObservers.end(); ++itr ) {
-        dynamic_cast<SpreadsheetFunctionCell*>(*itr)->removeArgument(this); //TODO: check the correctness of this line
+    while (!functionCellsObservers.empty()) {
+        removeObserver(*(functionCellsObservers.begin()));
     }
 }
 

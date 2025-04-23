@@ -17,6 +17,7 @@ set(UNIT_TEST_SRC runAllTests.cpp
         SpreadsheetRawNumericCellTests.cpp
         SpreadsheetRawTextualCell.cpp
         SpreadsheetEmptyCellTests.cpp
+        SpreadsheetSumCellTests.cpp
 )
 
 add_executable(runAllTests ${UNIT_TEST_SRC}

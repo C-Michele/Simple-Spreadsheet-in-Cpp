@@ -6,7 +6,7 @@
 
 class SpreadsheetSumCell final : public SpreadsheetNumericFunctionCell {
     public:
-        SpreadsheetSumCell() = default;
+        SpreadsheetSumCell();
         SpreadsheetSumCell(SpreadsheetCell* argument);
         SpreadsheetSumCell(const std::set<SpreadsheetCell*>& args);
 
