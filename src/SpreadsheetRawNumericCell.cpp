@@ -11,6 +11,9 @@ double SpreadsheetRawNumericCell::getAsNumericValue() const {
 }
 
 void SpreadsheetRawNumericCell::setNumericValue(double const value) {
+    double oldCellValue = cellValue;
     cellValue = value;
-    this->notify();
+    if (cellValue != oldCellValue) {
+        this->notify();
+    }
 }

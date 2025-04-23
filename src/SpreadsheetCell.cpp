@@ -24,6 +24,7 @@ void SpreadsheetCell::addObserver(Observer* const observer) {
     if ( dynamic_cast<SpreadsheetFunctionCell*>(this) != nullptr ) {
         if ( dynamic_cast<SpreadsheetFunctionCell*>(this) == convertedPointer ) {
             // This prevents the circular reference of a cell
+            //TODO: Implement a system to detect more complex circular references
             throw std::invalid_argument(" "); //TODO: add error message
         }
     }

@@ -16,5 +16,9 @@ void SpreadsheetRawTextualCell::setText(const std::string& text) {
     if ( text.empty() ) {
         throw std::invalid_argument(" "); //TODO: add error message
     }
+    const std::string oldCellText = cellText;
     cellText = text;
+    if (cellText!=oldCellText) {
+        this->notify();
+    }
 }

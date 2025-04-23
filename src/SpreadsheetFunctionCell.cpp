@@ -28,6 +28,7 @@ void SpreadsheetFunctionCell::addArgument(SpreadsheetCell* const argumentToAdd) 
         if ( dynamic_cast<SpreadsheetFunctionCell*>(argumentToAdd) != nullptr ) {
             if (dynamic_cast<SpreadsheetFunctionCell*>(argumentToAdd) == dynamic_cast<SpreadsheetFunctionCell*>(this) ) {
                 // This prevents the circular reference of a cell
+                //TODO: Implement a system to detect more complex circular references
                 throw std::invalid_argument(" "); //TODO: add error message
             }
         }
