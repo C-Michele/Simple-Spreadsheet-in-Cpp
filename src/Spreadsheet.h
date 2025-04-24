@@ -1,8 +1,9 @@
 #ifndef SPREADSHEET_H
 #define SPREADSHEET_H
 
-#include <cstddef>
+#include <memory>
 #include <set>
+#include <vector>
 
 #include "SpreadsheetCellCoordinates.h"
 #include "SpreadsheetCell.h"
@@ -15,7 +16,6 @@ class Spreadsheet {
             avg,
             sum
         };
-
         Spreadsheet(std::size_t numberOfColumns, std::size_t numberOfRows);
         std::size_t getNumberOfColumns() const;
         std::size_t getNumberOfRows() const;
@@ -26,8 +26,12 @@ class Spreadsheet {
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, double value);
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value);
         void setFunctionAt(const SpreadsheetCellCoordinates& coordinates, Function function, const std::set<SpreadsheetCellCoordinates>& functionArguments);
-
     private:
+        std::vector< std::vector< std::unique_ptr<SpreadsheetCell> > > cells;
+        std::size_t numberOfColumns;
+        SpreadsheetCell* getCellAt(const SpreadsheetCellCoordinates& coordinates) const;
+        void outOfRangeCheck(const SpreadsheetCellCoordinates& coordinates) const;
+        void outOfRangeCheck(const std::set<SpreadsheetCellCoordinates>& coordinatesSet) const;
 };
 
 /* TODO: implementation
