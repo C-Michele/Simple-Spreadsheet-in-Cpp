@@ -54,6 +54,24 @@ void Spreadsheet::deleteCellContentAt(const SpreadsheetCellCoordinates& coordina
     }
 }
 
+bool Spreadsheet::numericCellAt(const SpreadsheetCellCoordinates& coordinates) const {
+    outOfRangeCheck(coordinates);
+    return isNumericCell(coordinates);
+}
+
+std::string Spreadsheet::getCellAsTextAt(const SpreadsheetCellCoordinates& coordinates) const {
+    outOfRangeCheck(coordinates);
+    return getCellAt(coordinates)->getAsText();
+}
+
+double Spreadsheet::getCellAsNumericValueAt(const SpreadsheetCellCoordinates& coordinates) const {
+    outOfRangeCheck(coordinates);
+    if ( ! isNumericCell(coordinates) ) {
+        throw std::invalid_argument(" "); //TODO: add an error message
+    }
+    return dynamic_cast<SpreadsheetNumericCell*>(getCellAt(coordinates))->getAsNumericValue();
+}
+
 void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, double const value) {
     outOfRangeCheck(coordinates);
     if ( isRawNumericCell(coordinates) ) {
@@ -119,7 +137,7 @@ SpreadsheetCell* Spreadsheet::getCellAt(const SpreadsheetCellCoordinates& coordi
 
 void Spreadsheet::outOfRangeCheck(const SpreadsheetCellCoordinates& coordinates) const {
     if ( coordinates.getRowIndex() > getNumberOfRows() || coordinates.getColumnIndexAsInteger() > getNumberOfColumns() ) {
-        throw std::out_of_range(" "); //TODO: insert an error message
+        throw std::out_of_range("error"); //TODO: insert an error message
     }
 }
 

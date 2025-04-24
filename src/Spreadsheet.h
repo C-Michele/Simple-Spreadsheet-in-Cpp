@@ -21,8 +21,9 @@ class Spreadsheet {
         std::size_t getNumberOfRows() const;
         bool emptyCellAt(const SpreadsheetCellCoordinates& coordinates) const;
         void deleteCellContentAt(const SpreadsheetCellCoordinates& coordinates);
-        template <typename T>
-        T getCellValueAt(const SpreadsheetCellCoordinates& coordinates) const;
+        bool numericCellAt(const SpreadsheetCellCoordinates& coordinates) const;
+        std::string getCellAsTextAt(const SpreadsheetCellCoordinates& coordinates) const;
+        double getCellAsNumericValueAt(const SpreadsheetCellCoordinates& coordinates) const;
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, double value);
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value);
         void setFunctionAt(const SpreadsheetCellCoordinates& coordinates, Function function, const std::set<SpreadsheetCellCoordinates>& functionArguments);
@@ -43,11 +44,5 @@ class Spreadsheet {
         static bool isRawOnlyTextualCell(const SpreadsheetCell* cell);
         bool isRawOnlyTextualCell(const SpreadsheetCellCoordinates& coordinates) const;
 };
-
-/* TODO: implementation
-template<typename T>
-T Spreadsheet::getCellValueAt(const SpreadsheetCellCoordinates& coordinates) const {
-}
-*/
 
 #endif //SPREADSHEET_H
