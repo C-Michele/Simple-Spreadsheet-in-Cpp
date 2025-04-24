@@ -2,6 +2,10 @@
 
 #include "Spreadsheet.h"
 #include "SpreadsheetEmptyCell.h"
+#include "SpreadsheetFunctionCell.h"
+#include "SpreadsheetNumericCell.h"
+#include "SpreadsheetRawNumericCell.h"
+#include "SpreadsheetRawTextualCell.h"
 
 Spreadsheet::Spreadsheet(std::size_t const numberOfColumns, std::size_t const numberOfRows) : numberOfColumns(numberOfColumns) {
     if ( numberOfRows != 0 ) {
@@ -39,17 +43,64 @@ bool Spreadsheet::emptyCellAt(const SpreadsheetCellCoordinates& coordinates) con
 
 void Spreadsheet::deleteCellContentAt(const SpreadsheetCellCoordinates& coordinates) {
     outOfRangeCheck(coordinates);
-    //TODO: Continue implementation from here
+    if ( ! emptyCellAt(coordinates) ) {
+        auto& rowContainingTheCellToDelete = cells[coordinates.getRowIndex()-1];
+        auto itrPointingTheCellToDelete = rowContainingTheCellToDelete.begin();
+        for (std::size_t j = 1; j != coordinates.getColumnIndexAsInteger(); ++j) {
+            ++itrPointingTheCellToDelete;
+        }
+        rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetEmptyCell() );
+        //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+    }
 }
 
-void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, double value) {
+void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, double const value) {
     outOfRangeCheck(coordinates);
-    //TODO: Continue implementation from here
+    if ( isRawNumericCell(coordinates) ) {
+        const auto oldNumericValue = dynamic_cast<SpreadsheetRawNumericCell*>(getCellAt(coordinates))->getAsNumericValue();
+        if (value != oldNumericValue) {
+            dynamic_cast<SpreadsheetRawNumericCell*>(getCellAt(coordinates))->setNumericValue( value );
+            //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+        }
+    }
+    else {
+        auto& rowContainingTheCellToDelete = cells[coordinates.getRowIndex()-1];
+        auto itrPointingTheCellToDelete = rowContainingTheCellToDelete.begin();
+        for (std::size_t j = 1; j != coordinates.getColumnIndexAsInteger(); ++j) {
+            ++itrPointingTheCellToDelete;
+        }
+        if ( isNumericCell(coordinates) ) {
+            const auto oldNumericValue = dynamic_cast<SpreadsheetNumericCell*>(getCellAt(coordinates))->getAsNumericValue();
+            rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetRawNumericCell(value) );
+            if ( value != oldNumericValue ) {
+                //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+            }
+        }
+        else {
+            rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetRawNumericCell(value) );
+            //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+        }
+    }
 }
 
 void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value) {
     outOfRangeCheck(coordinates);
-    //TODO: Continue implementation from here
+    const auto oldTextualValue = getCellAt(coordinates)->getAsText();
+    if ( isRawOnlyTextualCell(coordinates) ) {
+        if ( value != oldTextualValue ) {
+            dynamic_cast<SpreadsheetRawTextualCell*>(getCellAt(coordinates))->setText( value );
+            //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+        }
+    }
+    else {
+        auto& rowContainingTheCellToDelete = cells[coordinates.getRowIndex()-1];
+        auto itrPointingTheCellToDelete = rowContainingTheCellToDelete.begin();
+        for (std::size_t j = 1; j != coordinates.getColumnIndexAsInteger(); ++j) {
+            ++itrPointingTheCellToDelete;
+        }
+        rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetRawTextualCell(value) );
+        //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+    }
 }
 
 void Spreadsheet::setFunctionAt(
@@ -76,4 +127,44 @@ void Spreadsheet::outOfRangeCheck(const std::set<SpreadsheetCellCoordinates>& co
     for (auto itr = coordinatesSet.cbegin(); itr != coordinatesSet.cend(); ++itr) {
         outOfRangeCheck(*itr);
     }
+}
+
+bool Spreadsheet::isFunctionCell(const SpreadsheetCell* const cell) {
+    return dynamic_cast<const SpreadsheetFunctionCell*>(cell) != nullptr;
+}
+
+bool Spreadsheet::isFunctionCell(const SpreadsheetCellCoordinates& coordinates) const {
+    return isFunctionCell(getCellAt(coordinates));
+}
+
+bool Spreadsheet::isNumericCell(const SpreadsheetCell* const cell) {
+    return dynamic_cast<const SpreadsheetNumericCell*>(cell) != nullptr;
+}
+
+bool Spreadsheet::isNumericCell(const SpreadsheetCellCoordinates& coordinates) const {
+    return isNumericCell(getCellAt(coordinates));
+}
+
+bool Spreadsheet::isOnlyTextualCell(const SpreadsheetCell* const cell) {
+    return !isNumericCell(cell);
+}
+
+bool Spreadsheet::isOnlyTextualCell(const SpreadsheetCellCoordinates& coordinates) const {
+    return isOnlyTextualCell(getCellAt(coordinates));
+}
+
+bool Spreadsheet::isRawNumericCell(const SpreadsheetCell* const cell) {
+    return dynamic_cast<const SpreadsheetRawNumericCell*>(cell) != nullptr;
+}
+
+bool Spreadsheet::isRawNumericCell(const SpreadsheetCellCoordinates& coordinates) const {
+    return isRawNumericCell(getCellAt(coordinates));
+}
+
+bool Spreadsheet::isRawOnlyTextualCell(const SpreadsheetCell* const cell) {
+    return dynamic_cast<const SpreadsheetRawTextualCell*>(cell) != nullptr;
+}
+
+bool Spreadsheet::isRawOnlyTextualCell(const SpreadsheetCellCoordinates& coordinates) const {
+    return isRawOnlyTextualCell(getCellAt(coordinates));
 }
