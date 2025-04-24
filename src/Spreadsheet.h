@@ -32,6 +32,16 @@ class Spreadsheet {
         SpreadsheetCell* getCellAt(const SpreadsheetCellCoordinates& coordinates) const;
         void outOfRangeCheck(const SpreadsheetCellCoordinates& coordinates) const;
         void outOfRangeCheck(const std::set<SpreadsheetCellCoordinates>& coordinatesSet) const;
+        static bool isFunctionCell(const SpreadsheetCell* cell);
+        bool isFunctionCell(const SpreadsheetCellCoordinates& coordinates) const;
+        static bool isNumericCell(const SpreadsheetCell* cell);
+        bool isNumericCell(const SpreadsheetCellCoordinates& coordinates) const;
+        static bool isOnlyTextualCell(const SpreadsheetCell* cell);
+        bool isOnlyTextualCell(const SpreadsheetCellCoordinates& coordinates) const;
+        static bool isRawNumericCell(const SpreadsheetCell* cell);
+        bool isRawNumericCell(const SpreadsheetCellCoordinates& coordinates) const;
+        static bool isRawOnlyTextualCell(const SpreadsheetCell* cell);
+        bool isRawOnlyTextualCell(const SpreadsheetCellCoordinates& coordinates) const;
 };
 
 /* TODO: implementation
