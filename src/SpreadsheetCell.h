@@ -16,6 +16,7 @@ class SpreadsheetCell : public virtual Subject {
 
         virtual bool isEmpty() const = 0;
         virtual std::string getAsText() const = 0;
+        std::set<Observer*> getObservers() const;
 
         virtual void notify() override final;
         virtual void addObserver(Observer* observer) override final;

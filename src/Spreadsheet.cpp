@@ -49,7 +49,16 @@ void Spreadsheet::deleteCellContentAt(const SpreadsheetCellCoordinates& coordina
         for (std::size_t j = 1; j != coordinates.getColumnIndexAsInteger(); ++j) {
             ++itrPointingTheCellToDelete;
         }
-        rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetEmptyCell() );
+        const auto cellObservers = (*itrPointingTheCellToDelete)->getObservers();
+        const auto itrPointingNewCell =
+            rowContainingTheCellToDelete.emplace(
+                rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) ,
+                new SpreadsheetEmptyCell() );
+        for (auto itr = cellObservers.cbegin(); itr != cellObservers.cend(); ++itr) {
+            if ( dynamic_cast<SpreadsheetFunctionCell*>(*itr) != nullptr ) {
+                dynamic_cast<SpreadsheetFunctionCell*>(*itr)->addArgument( (*itrPointingNewCell).get() );
+            }
+        }
         //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
     }
 }
@@ -87,15 +96,32 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, doub
         for (std::size_t j = 1; j != coordinates.getColumnIndexAsInteger(); ++j) {
             ++itrPointingTheCellToDelete;
         }
+        const auto cellObservers = (*itrPointingTheCellToDelete)->getObservers();
         if ( isNumericCell(coordinates) ) {
             const auto oldNumericValue = dynamic_cast<SpreadsheetNumericCell*>(getCellAt(coordinates))->getAsNumericValue();
-            rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetRawNumericCell(value) );
+            const auto itrPointingNewCell =
+                rowContainingTheCellToDelete.emplace(
+                    rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) ,
+                    new SpreadsheetRawNumericCell( value ) );
+            for (auto itr = cellObservers.cbegin(); itr != cellObservers.cend(); ++itr) {
+                if ( dynamic_cast<SpreadsheetFunctionCell*>(*itr) != nullptr ) {
+                    dynamic_cast<SpreadsheetFunctionCell*>(*itr)->addArgument( (*itrPointingNewCell).get() );
+                }
+            }
             if ( value != oldNumericValue ) {
                 //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
             }
         }
         else {
-            rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetRawNumericCell(value) );
+            const auto itrPointingNewCell =
+                rowContainingTheCellToDelete.emplace(
+                    rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) ,
+                    new SpreadsheetRawNumericCell( value ) );
+            for (auto itr = cellObservers.cbegin(); itr != cellObservers.cend(); ++itr) {
+                if ( dynamic_cast<SpreadsheetFunctionCell*>(*itr) != nullptr ) {
+                    dynamic_cast<SpreadsheetFunctionCell*>(*itr)->addArgument( (*itrPointingNewCell).get() );
+                }
+            }
             //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
         }
     }
@@ -103,6 +129,9 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, doub
 
 void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value) {
     outOfRangeCheck(coordinates);
+    if (value.empty()) {
+        throw std::invalid_argument(" "); //TODO: add error message
+    }
     const auto oldTextualValue = getCellAt(coordinates)->getAsText();
     if ( isRawOnlyTextualCell(coordinates) ) {
         if ( value != oldTextualValue ) {
@@ -116,7 +145,16 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, cons
         for (std::size_t j = 1; j != coordinates.getColumnIndexAsInteger(); ++j) {
             ++itrPointingTheCellToDelete;
         }
-        rowContainingTheCellToDelete.emplace( rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) , new SpreadsheetRawTextualCell(value) );
+        const auto cellObservers = (*itrPointingTheCellToDelete)->getObservers();
+        const auto itrPointingNewCell =
+            rowContainingTheCellToDelete.emplace(
+                rowContainingTheCellToDelete.erase(itrPointingTheCellToDelete) ,
+                new SpreadsheetRawTextualCell( value ) );
+        for (auto itr = cellObservers.cbegin(); itr != cellObservers.cend(); ++itr) {
+            if ( dynamic_cast<SpreadsheetFunctionCell*>(*itr) != nullptr ) {
+                dynamic_cast<SpreadsheetFunctionCell*>(*itr)->addArgument( (*itrPointingNewCell).get() );
+            }
+        }
         //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
     }
 }
@@ -127,6 +165,11 @@ void Spreadsheet::setFunctionAt(
     const std::set<SpreadsheetCellCoordinates>& functionArguments ) {
     outOfRangeCheck(coordinates);
     outOfRangeCheck(functionArguments);
+    if ( functionArguments.find(coordinates) != functionArguments.cend() ) {
+        // This prevents the circular reference of a cell
+        //TODO: Implement a system to detect more complex circular references
+        throw std::invalid_argument(" "); //TODO: add error message
+    }
     //TODO: Continue implementation from here
 }
 

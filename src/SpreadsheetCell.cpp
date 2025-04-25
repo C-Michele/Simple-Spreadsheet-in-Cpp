@@ -9,6 +9,10 @@ SpreadsheetCell::~SpreadsheetCell() {
     }
 }
 
+std::set<Observer*> SpreadsheetCell::getObservers() const {
+    return functionCellsObservers;
+}
+
 void SpreadsheetCell::notify() {
     for ( auto itr = functionCellsObservers.begin(); itr != functionCellsObservers.end(); ++itr ) {
         (*itr)->update();
