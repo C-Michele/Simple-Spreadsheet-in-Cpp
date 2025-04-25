@@ -669,3 +669,47 @@ TEST(Spreadsheet,setFunctionAt__max__out_of_range_exception__function_arguments)
         }
     }
 }
+
+TEST(Spreadsheet,deleteCellContentAt) {
+    const std::size_t numberOfColumns = 8;
+    const std::size_t numberOfRows = 8;
+
+    Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
+
+    for (std::size_t k = 1; k <= numberOfColumns; ++k) {
+        for (std::size_t l = 1; l <= numberOfRows; ++l) {
+            spreadsheet.deleteCellContentAt(SpreadsheetCellCoordinates(k,l));
+            EXPECT_TRUE( spreadsheet.emptyCellAt(SpreadsheetCellCoordinates(k,l)) );
+        }
+    }
+}
+
+TEST(Spreadsheet,setValueAt_double) {
+    const std::size_t numberOfColumns = 8;
+    const std::size_t numberOfRows = 8;
+
+    Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
+
+    for (std::size_t k = 1; k <= numberOfColumns; ++k) {
+        for (std::size_t l = 1; l <= numberOfRows; ++l) {
+            const double value = 5873849.0;
+            spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),value);
+            EXPECT_EQ( spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(k,l)) , value );
+        }
+    }
+}
+
+TEST(Spreadsheet,setValueAt_string) {
+    const std::size_t numberOfColumns = 8;
+    const std::size_t numberOfRows = 8;
+
+    Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
+
+    for (std::size_t k = 1; k <= numberOfColumns; ++k) {
+        for (std::size_t l = 1; l <= numberOfRows; ++l) {
+            const std::string value = "Hello, world!";
+            spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),value);
+            EXPECT_EQ( spreadsheet.getCellAsTextAt(SpreadsheetCellCoordinates(k,l)) , value );
+        }
+    }
+}
