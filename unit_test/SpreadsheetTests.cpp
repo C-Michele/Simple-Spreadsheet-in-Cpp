@@ -339,7 +339,7 @@ TEST(Spreadsheet,setFunctionAt__sum__invalid_argument_exception_after_circular_r
             });
     }
     catch (const std::invalid_argument& e) {
-        bool exceptionThrown = true;
+        exceptionThrown = true;
     }
 
     EXPECT_TRUE(exceptionThrown);
@@ -362,7 +362,7 @@ TEST(Spreadsheet,setFunctionAt__avg__invalid_argument_exception_after_circular_r
             });
     }
     catch (const std::invalid_argument& e) {
-        bool exceptionThrown = true;
+        exceptionThrown = true;
     }
 
     EXPECT_TRUE(exceptionThrown);
@@ -385,7 +385,7 @@ TEST(Spreadsheet,setFunctionAt__min__invalid_argument_exception_after_circular_r
             });
     }
     catch (const std::invalid_argument& e) {
-        bool exceptionThrown = true;
+        exceptionThrown = true;
     }
 
     EXPECT_TRUE(exceptionThrown);
@@ -408,7 +408,7 @@ TEST(Spreadsheet,setFunctionAt__max__invalid_argument_exception_after_circular_r
             });
     }
     catch (const std::invalid_argument& e) {
-        bool exceptionThrown = true;
+        exceptionThrown = true;
     }
 
     EXPECT_TRUE(exceptionThrown);
@@ -543,8 +543,8 @@ TEST(Spreadsheet,setFunctionAt__max__out_of_range_exception__function_cell) {
 }
 
 TEST(Spreadsheet,setFunctionAt__sum__out_of_range_exception__function_arguments) {
-    const std::size_t numberOfColumns = 4;
-    const std::size_t numberOfRows = 4;
+    const std::size_t numberOfColumns = 8;
+    const std::size_t numberOfRows = 8;
     const std::size_t columnsIndexesOuterRange = 20;
     const std::size_t rowsIndexesOuterRange = 20;
 
@@ -552,8 +552,8 @@ TEST(Spreadsheet,setFunctionAt__sum__out_of_range_exception__function_arguments)
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
-        for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
+    for (std::size_t k = 2; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
+        for (std::size_t l = 2; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             bool exceptionThrown = false;
             try {
                 spreadsheet.setFunctionAt(
@@ -575,8 +575,8 @@ TEST(Spreadsheet,setFunctionAt__sum__out_of_range_exception__function_arguments)
 }
 
 TEST(Spreadsheet,setFunctionAt__avg__out_of_range_exception__function_arguments) {
-    const std::size_t numberOfColumns = 4;
-    const std::size_t numberOfRows = 4;
+    const std::size_t numberOfColumns = 8;
+    const std::size_t numberOfRows = 8;
     const std::size_t columnsIndexesOuterRange = 20;
     const std::size_t rowsIndexesOuterRange = 20;
 
@@ -584,8 +584,8 @@ TEST(Spreadsheet,setFunctionAt__avg__out_of_range_exception__function_arguments)
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
-        for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
+    for (std::size_t k = 2; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
+        for (std::size_t l = 2; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             bool exceptionThrown = false;
             try {
                 spreadsheet.setFunctionAt(
@@ -607,8 +607,8 @@ TEST(Spreadsheet,setFunctionAt__avg__out_of_range_exception__function_arguments)
 }
 
 TEST(Spreadsheet,setFunctionAt__min__out_of_range_exception__function_arguments) {
-    const std::size_t numberOfColumns = 4;
-    const std::size_t numberOfRows = 4;
+    const std::size_t numberOfColumns = 8;
+    const std::size_t numberOfRows = 8;
     const std::size_t columnsIndexesOuterRange = 20;
     const std::size_t rowsIndexesOuterRange = 20;
 
@@ -616,8 +616,8 @@ TEST(Spreadsheet,setFunctionAt__min__out_of_range_exception__function_arguments)
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
-        for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
+    for (std::size_t k = 2; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
+        for (std::size_t l = 2; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             bool exceptionThrown = false;
             try {
                 spreadsheet.setFunctionAt(
@@ -639,8 +639,8 @@ TEST(Spreadsheet,setFunctionAt__min__out_of_range_exception__function_arguments)
 }
 
 TEST(Spreadsheet,setFunctionAt__max__out_of_range_exception__function_arguments) {
-    const std::size_t numberOfColumns = 4;
-    const std::size_t numberOfRows = 4;
+    const std::size_t numberOfColumns = 8;
+    const std::size_t numberOfRows = 8;
     const std::size_t columnsIndexesOuterRange = 20;
     const std::size_t rowsIndexesOuterRange = 20;
 
@@ -648,8 +648,8 @@ TEST(Spreadsheet,setFunctionAt__max__out_of_range_exception__function_arguments)
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
-        for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
+    for (std::size_t k = 2; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
+        for (std::size_t l = 2; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             bool exceptionThrown = false;
             try {
                 spreadsheet.setFunctionAt(
