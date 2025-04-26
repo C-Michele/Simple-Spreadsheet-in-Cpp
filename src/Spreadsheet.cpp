@@ -178,6 +178,15 @@ SpreadsheetCell* Spreadsheet::getCellAt(const SpreadsheetCellCoordinates& coordi
     return ( ( cells[coordinates.getRowIndex()-1] )[coordinates.getColumnIndexAsInteger()-1] ).get();
 }
 
+std::set<SpreadsheetCell*> Spreadsheet::getCellsAt(const std::set<SpreadsheetCellCoordinates>& coordinatesSet) const {
+    std::set<SpreadsheetCell*> setToReturn;
+    for (auto itr = coordinatesSet.cbegin(); itr != coordinatesSet.cend(); ++itr) {
+        outOfRangeCheck(*itr);
+        setToReturn.insert( getCellAt( *itr ) );
+    }
+    return setToReturn;
+}
+
 void Spreadsheet::outOfRangeCheck(const SpreadsheetCellCoordinates& coordinates) const {
     if ( coordinates.getRowIndex() > getNumberOfRows() || coordinates.getColumnIndexAsInteger() > getNumberOfColumns() ) {
         throw std::out_of_range("error"); //TODO: insert an error message
