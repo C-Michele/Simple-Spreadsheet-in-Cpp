@@ -31,6 +31,7 @@ class Spreadsheet {
         std::vector< std::vector< std::unique_ptr<SpreadsheetCell> > > cells;
         std::size_t numberOfColumns;
         SpreadsheetCell* getCellAt(const SpreadsheetCellCoordinates& coordinates) const;
+        std::set<SpreadsheetCell*> getCellsAt(const std::set<SpreadsheetCellCoordinates>& coordinatesSet) const;
         void outOfRangeCheck(const SpreadsheetCellCoordinates& coordinates) const;
         void outOfRangeCheck(const std::set<SpreadsheetCellCoordinates>& coordinatesSet) const;
         static bool isFunctionCell(const SpreadsheetCell* cell);
