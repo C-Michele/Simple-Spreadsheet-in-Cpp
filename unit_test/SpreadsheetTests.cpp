@@ -713,3 +713,45 @@ TEST(Spreadsheet,setValueAt_string) {
         }
     }
 }
+
+TEST(Spreadsheet,setFunctionAt_sum_correct_behavior) {
+    const std::size_t numberOfColumns = 2;
+    const std::size_t numberOfRows = 2;
+
+    Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
+
+    spreadsheet.setFunctionAt(
+        SpreadsheetCellCoordinates(1,1),
+        Spreadsheet::Function::sum,
+        {
+            SpreadsheetCellCoordinates(2,1),
+            SpreadsheetCellCoordinates(2,2),
+            SpreadsheetCellCoordinates(1,2)
+        } );
+
+    EXPECT_EQ(spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(1,1)), 0.0);
+
+    spreadsheet.setValueAt(SpreadsheetCellCoordinates(2,1),"Ignored text");
+
+    EXPECT_EQ(spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(1,1)), 0.0);
+
+    spreadsheet.setValueAt(SpreadsheetCellCoordinates(2,1), 2.1);
+
+    EXPECT_EQ(spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(1,1)), 2.1);
+
+    spreadsheet.setValueAt(SpreadsheetCellCoordinates(2,2),2.2);
+
+    EXPECT_EQ(spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(1,1)), 2.1+2.2);
+
+    spreadsheet.deleteCellContentAt(SpreadsheetCellCoordinates(2,2));
+
+    EXPECT_EQ(spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(1,1)), 2.1);
+
+    spreadsheet.setValueAt(SpreadsheetCellCoordinates(2,2),2.2);
+
+    EXPECT_EQ(spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(1,1)), 2.1+2.2);
+
+    spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,2),1.2);
+
+    EXPECT_EQ(spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(1,1)), (2.1+1.2)+2.2 );
+}
