@@ -23,6 +23,14 @@ class SimpleSpreadsheet : public wxApp {
 
 bool SimpleSpreadsheet::OnInit() {
     spreadsheet = std::make_unique<Spreadsheet>(5, 5);
+    /*
+    spreadsheet->setFunctionAt(SpreadsheetCellCoordinates(1,1),
+        Spreadsheet::Function::sum,
+        {
+            SpreadsheetCellCoordinates(2,1),
+            SpreadsheetCellCoordinates(3,1),
+        });
+    */
     spreadsheetController = std::make_unique<SpreadsheetController>(spreadsheet.get());
     spreadsheetView = std::make_unique<SpreadsheetView>(spreadsheet.get(), spreadsheetController.get());
     spreadsheetView->Show(true);
