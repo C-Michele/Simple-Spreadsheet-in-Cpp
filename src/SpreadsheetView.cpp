@@ -6,7 +6,8 @@ spreadsheet(spreadsheet),
 spreadsheetController(spreadsheetController),
 menuFile(new wxMenu),
 menuHelp(new wxMenu),
-menuBar(new wxMenuBar) {
+menuBar(new wxMenuBar),
+grid( new wxGrid( this,-1,wxPoint( 0, 0 ),wxSize( 400, 300 ) ) ) {
     menuFile->Append(wxID_EXIT);
     menuHelp->Append(wxID_ABOUT);
     wxFrame::SetMenuBar(menuBar.get());
@@ -22,6 +23,7 @@ menuBar(new wxMenuBar) {
             wxFrame::Close(true);
         },
         wxID_EXIT );
+    grid->CreateGrid( spreadsheet->getNumberOfRows(), spreadsheet->getNumberOfColumns() );
 }
 
 void SpreadsheetView::update() {

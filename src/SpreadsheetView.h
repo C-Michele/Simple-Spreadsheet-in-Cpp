@@ -6,6 +6,7 @@
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
 #endif
+#include <wx/grid.h>
 
 #include <memory>
 #include "utility/Observer.h"
@@ -26,6 +27,7 @@ class SpreadsheetView : public wxFrame, public Observer { // TODO: Continue this
         std::unique_ptr<wxMenu> menuFile;
         std::unique_ptr<wxMenu> menuHelp;
         std::unique_ptr<wxMenuBar> menuBar;
+        std::unique_ptr<wxGrid> grid;
 };
 
 #endif //SPREADSHEETVIEW_H
