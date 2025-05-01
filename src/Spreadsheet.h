@@ -5,10 +5,12 @@
 #include <set>
 #include <vector>
 
+#include "utility/Observer.h"
+#include "utility/Subject.h"
 #include "SpreadsheetCellCoordinates.h"
 #include "SpreadsheetCell.h"
 
-class Spreadsheet {
+class Spreadsheet : public Subject {
     public:
         enum Function {
             max,
@@ -16,17 +18,25 @@ class Spreadsheet {
             avg,
             sum
         };
+
         Spreadsheet(std::size_t numberOfColumns, std::size_t numberOfRows);
+
         std::size_t getNumberOfColumns() const;
         std::size_t getNumberOfRows() const;
         bool emptyCellAt(const SpreadsheetCellCoordinates& coordinates) const;
-        void deleteCellContentAt(const SpreadsheetCellCoordinates& coordinates);
         bool numericCellAt(const SpreadsheetCellCoordinates& coordinates) const;
         std::string getCellAsTextAt(const SpreadsheetCellCoordinates& coordinates) const;
         double getCellAsNumericValueAt(const SpreadsheetCellCoordinates& coordinates) const;
+
+        void deleteCellContentAt(const SpreadsheetCellCoordinates& coordinates);
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, double value);
         void setValueAt(const SpreadsheetCellCoordinates& coordinates, const std::string& value);
         void setFunctionAt(const SpreadsheetCellCoordinates& coordinates, Function function, const std::set<SpreadsheetCellCoordinates>& functionArguments);
+
+        virtual void notify() override;
+        virtual void addObserver(Observer* observer) override;
+        virtual void removeObserver(Observer* observer) override;
+
     private:
         std::vector< std::vector< std::unique_ptr<SpreadsheetCell> > > cells;
         std::size_t numberOfColumns;
@@ -44,6 +54,8 @@ class Spreadsheet {
         bool isRawNumericCell(const SpreadsheetCellCoordinates& coordinates) const;
         static bool isRawOnlyTextualCell(const SpreadsheetCell* cell);
         bool isRawOnlyTextualCell(const SpreadsheetCellCoordinates& coordinates) const;
+
+        std::set<Observer*> observers;
 };
 
 #endif //SPREADSHEET_H
