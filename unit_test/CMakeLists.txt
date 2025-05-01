@@ -47,6 +47,8 @@ add_executable(runAllTests ${UNIT_TEST_SRC}
         ../src/SpreadsheetRawTextualCell.h
         ../src/SpreadsheetSumCell.cpp
         ../src/SpreadsheetSumCell.h
+        ../src/SpreadsheetController.cpp
+        ../src/SpreadsheetController.h
 )
 target_link_libraries(runAllTests gtest_main)
 

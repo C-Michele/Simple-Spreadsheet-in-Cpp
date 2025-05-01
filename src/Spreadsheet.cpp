@@ -60,7 +60,7 @@ void Spreadsheet::deleteCellContentAt(const SpreadsheetCellCoordinates& coordina
                 dynamic_cast<SpreadsheetFunctionCell*>(*itr)->addArgument( (*itrPointingNewCell).get() );
             }
         }
-        //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+        this->notify();
     }
 }
 
@@ -88,7 +88,7 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, doub
         const auto oldNumericValue = dynamic_cast<SpreadsheetRawNumericCell*>(getCellAt(coordinates))->getAsNumericValue();
         if (value != oldNumericValue) {
             dynamic_cast<SpreadsheetRawNumericCell*>(getCellAt(coordinates))->setNumericValue( value );
-            //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+            this->notify();
         }
     }
     else {
@@ -110,7 +110,7 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, doub
                 }
             }
             if ( value != oldNumericValue ) {
-                //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+                this->notify();
             }
         }
         else {
@@ -123,7 +123,7 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, doub
                     dynamic_cast<SpreadsheetFunctionCell*>(*itr)->addArgument( (*itrPointingNewCell).get() );
                 }
             }
-            //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+            this->notify();
         }
     }
 }
@@ -137,7 +137,7 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, cons
     if ( isRawOnlyTextualCell(coordinates) ) {
         if ( value != oldTextualValue ) {
             dynamic_cast<SpreadsheetRawTextualCell*>(getCellAt(coordinates))->setText( value );
-            //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+            this->notify();
         }
     }
     else {
@@ -156,7 +156,7 @@ void Spreadsheet::setValueAt(const SpreadsheetCellCoordinates& coordinates, cons
                 dynamic_cast<SpreadsheetFunctionCell*>(*itr)->addArgument( (*itrPointingNewCell).get() );
             }
         }
-        //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+        this->notify();
     }
 }
 
@@ -262,7 +262,27 @@ void Spreadsheet::setFunctionAt(
         }
         throw;
     }
-    //TODO: Once this class will be a derivative of the "Subject" class, insert the "this->notify()" call here
+    this->notify();
+}
+
+void Spreadsheet::notify() {
+    for ( auto itr = observers.begin(); itr != observers.end(); ++itr ) {
+        (*itr)->update();
+    }
+}
+
+void Spreadsheet::addObserver(Observer* const observer) {
+    if ( observer != nullptr ) {
+        if ( (observers.emplace(observer)).second ) {
+
+        }
+    }
+}
+
+void Spreadsheet::removeObserver(Observer* const observer) {
+    if ( observers.erase(observer) == 1 ) {
+
+    }
 }
 
 SpreadsheetCell* Spreadsheet::getCellAt(const SpreadsheetCellCoordinates& coordinates) const {

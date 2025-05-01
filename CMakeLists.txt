@@ -38,6 +38,10 @@ set(SIMPLE_SPREADSHEET_SRC src/Spreadsheet.cpp
         src/SpreadsheetRawTextualCell.h
         src/SpreadsheetSumCell.cpp
         src/SpreadsheetSumCell.h
+        src/SpreadsheetController.cpp
+        src/SpreadsheetController.h
+        src/View.cpp
+        src/View.h
 )
 
 add_executable(${PROJECT_NAME} main.cpp
