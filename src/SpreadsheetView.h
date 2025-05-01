@@ -21,7 +21,7 @@ class SpreadsheetView : public wxFrame, public Observer { // TODO: Continue this
         virtual void update() override;
 
     private:
-        const Spreadsheet* spreadsheet;
+        Spreadsheet* spreadsheet;
         SpreadsheetController* spreadsheetController;
 
         std::unique_ptr<wxMenu> menuFile;

@@ -13,6 +13,10 @@ void SpreadsheetController::deleteCellContentAt(const std::string& cellCoordinat
     }
 }
 
+void SpreadsheetController::deleteCellContentAt(const SpreadsheetCellCoordinates& coordinates) const {
+    spreadsheet->deleteCellContentAt(coordinates);
+}
+
 void SpreadsheetController::setCellAt(const std::string& cellCoordinatesAsString, const std::string& string) const {
     const auto cellCoordinatesAsStringParseReturn = parseAsCellCoordinates(cellCoordinatesAsString);
     if ( cellCoordinatesAsStringParseReturn.first ) {
@@ -29,6 +33,19 @@ void SpreadsheetController::setCellAt(const std::string& cellCoordinatesAsString
     }
     else {
         throw std::invalid_argument(" "); //TODO: add error message
+    }
+}
+
+void SpreadsheetController::setCellAt(const SpreadsheetCellCoordinates& coordinates, const std::string& string) const {
+    const auto stringParseReturn = parseAsDouble(string);
+    if ( string.empty() ) {
+        spreadsheet->deleteCellContentAt(coordinates);
+    }
+    else if ( stringParseReturn.first ) {
+        spreadsheet->setValueAt(coordinates, stringParseReturn.second);
+    }
+    else {
+        spreadsheet->setValueAt(coordinates, string);
     }
 }
 
@@ -54,6 +71,12 @@ void SpreadsheetController::setSumCellAt(
         throw std::invalid_argument(" "); //TODO: add error message
     }
 
+}
+
+void SpreadsheetController::setSumCellAt(
+    const SpreadsheetCellCoordinates& coordinates,
+    const std::set<SpreadsheetCellCoordinates>& argumentsCoordinates) const {
+    spreadsheet->setFunctionAt(coordinates, Spreadsheet::Function::sum, argumentsCoordinates);
 }
 
 std::pair<bool, double> SpreadsheetController::parseAsDouble(const std::string& string) {

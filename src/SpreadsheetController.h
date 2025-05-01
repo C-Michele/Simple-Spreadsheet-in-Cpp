@@ -10,8 +10,11 @@ class SpreadsheetController {
         SpreadsheetController(Spreadsheet* spreadsheet);
 
         void deleteCellContentAt(const std::string& cellCoordinatesAsString) const;
+        void deleteCellContentAt(const SpreadsheetCellCoordinates& coordinates) const;
         void setCellAt(const std::string& cellCoordinatesAsString, const std::string& string) const;
+        void setCellAt(const SpreadsheetCellCoordinates& coordinates, const std::string& string) const;
         void setSumCellAt(const std::string& cellCoordinatesAsString, const std::set<std::string>& argumentsCoordinatesAsString) const;
+        void setSumCellAt(const SpreadsheetCellCoordinates& coordinates, const std::set<SpreadsheetCellCoordinates>& argumentsCoordinates) const;
     private:
         Spreadsheet* spreadsheet;
 
