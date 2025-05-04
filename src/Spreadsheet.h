@@ -20,6 +20,7 @@ class Spreadsheet : public Subject {
         };
 
         Spreadsheet(std::size_t numberOfColumns, std::size_t numberOfRows);
+        ~Spreadsheet();
 
         std::size_t getNumberOfColumns() const;
         std::size_t getNumberOfRows() const;
@@ -54,6 +55,7 @@ class Spreadsheet : public Subject {
         bool isRawNumericCell(const SpreadsheetCellCoordinates& coordinates) const;
         static bool isRawOnlyTextualCell(const SpreadsheetCell* cell);
         bool isRawOnlyTextualCell(const SpreadsheetCellCoordinates& coordinates) const;
+        static bool isSecurelyErasable(const SpreadsheetCell* cell);
 
         std::set<Observer*> observers;
 };

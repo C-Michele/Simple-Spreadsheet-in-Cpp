@@ -49,6 +49,14 @@ add_executable(runAllTests ${UNIT_TEST_SRC}
         ../src/SpreadsheetSumCell.h
         ../src/SpreadsheetController.cpp
         ../src/SpreadsheetController.h
+        ../src/SpreadsheetMaxCell.cpp
+        ../src/SpreadsheetMaxCell.h
+        ../src/SpreadsheetMinCell.cpp
+        ../src/SpreadsheetMinCell.h
+        ../src/SpreadsheetAvgCell.cpp
+        ../src/SpreadsheetAvgCell.h
+        ../src/utility/Latch.cpp
+        ../src/utility/Latch.h
 )
 target_link_libraries(runAllTests gtest_main)
 
