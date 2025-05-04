@@ -22,14 +22,17 @@ double SpreadsheetSumCell::getAsNumericValue() const {
 }
 
 void SpreadsheetSumCell::update() {
-    const double oldSumResult = sumResult;
+    const auto oldSumResult = sumResult;
     const auto cellsArguments = getArguments();
-    double newSumResult = 0;
+    std::multiset<double> allNumericCellsArgumentsValues;
     for (auto itr = cellsArguments.cbegin(); itr != cellsArguments.cend(); ++itr ) {
-        SpreadsheetNumericCell* const convertedPointer = dynamic_cast<SpreadsheetNumericCell*>((*itr));
-        if ( convertedPointer != nullptr) {
-            newSumResult = newSumResult + convertedPointer->getAsNumericValue();
+        if ( dynamic_cast<SpreadsheetNumericCell*>( *itr ) != nullptr ) {
+            allNumericCellsArgumentsValues.emplace( dynamic_cast<SpreadsheetNumericCell*>( *itr )->getAsNumericValue() );
         }
+    }
+    double newSumResult = 0.0;
+    for (auto itr = allNumericCellsArgumentsValues.cbegin(); itr != allNumericCellsArgumentsValues.cend(); ++itr) {
+        newSumResult = newSumResult + (*itr);
     }
     sumResult = newSumResult;
     if (sumResult != oldSumResult) {

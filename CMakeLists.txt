@@ -42,6 +42,14 @@ set(SIMPLE_SPREADSHEET_SRC src/Spreadsheet.cpp
         src/SpreadsheetController.h
         src/SpreadsheetView.cpp
         src/SpreadsheetView.h
+        src/SpreadsheetMaxCell.cpp
+        src/SpreadsheetMaxCell.h
+        src/SpreadsheetMinCell.cpp
+        src/SpreadsheetMinCell.h
+        src/SpreadsheetAvgCell.cpp
+        src/SpreadsheetAvgCell.h
+        src/utility/Latch.cpp
+        src/utility/Latch.h
 )
 
 add_executable(${PROJECT_NAME} main.cpp
