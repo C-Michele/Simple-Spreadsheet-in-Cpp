@@ -9,14 +9,7 @@ TEST(SpreadsheetCellCoordinates,Constructor_invalid_argument_exception_with_0_as
     const std::size_t rowMaxIndex = 20;
     for (std::size_t j = 1; j <= rowMaxIndex; ++j) {
         const auto rowIndex = j;
-        bool exceptionThrown = false;
-        try {
-            SpreadsheetCellCoordinates coordinates(0,j);
-        }
-        catch (const std::invalid_argument& e) {
-            exceptionThrown = true;
-        }
-        EXPECT_TRUE(exceptionThrown);
+        EXPECT_THROW(SpreadsheetCellCoordinates coordinates(0,j), std::invalid_argument);
     }
 }
 
@@ -24,14 +17,7 @@ TEST(SpreadsheetCellCoordinates,Constructor_invalid_argument_exception_with_0_as
     const std::size_t columnMaxIndex = 20;
     for (std::size_t i = 1; i <= columnMaxIndex; ++i) {
         const auto columnIndex = i;
-        bool exceptionThrown = false;
-        try {
-            SpreadsheetCellCoordinates coordinates(i,0);
-        }
-        catch (const std::invalid_argument& e) {
-            exceptionThrown = true;
-        }
-        EXPECT_TRUE(exceptionThrown);
+        EXPECT_THROW(SpreadsheetCellCoordinates coordinates(i,0), std::invalid_argument);
     }
 }
 

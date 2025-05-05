@@ -46,18 +46,11 @@ TEST(Spreadsheet,emptyCellAt_out_of_range_exception) {
             const Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
             for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
                 for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
-                    bool exceptionThrown = false;
-                    try {
-                        spreadsheet.emptyCellAt(SpreadsheetCellCoordinates(k,l));
-                    }
-                    catch (const std::out_of_range& e) {
-                        exceptionThrown = true;
-                    }
                     if ( k <= numberOfColumns && l <= numberOfRows) {
-                        EXPECT_FALSE(exceptionThrown);
+                        EXPECT_NO_THROW(spreadsheet.emptyCellAt(SpreadsheetCellCoordinates(k,l)));
                     }
                     else {
-                        EXPECT_TRUE(exceptionThrown);
+                        EXPECT_THROW(spreadsheet.emptyCellAt(SpreadsheetCellCoordinates(k,l)),std::out_of_range);
                     }
                 }
             }
@@ -78,18 +71,11 @@ TEST(Spreadsheet,deleteCellContentAt_out_of_range_exception) {
             Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
             for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
                 for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
-                    bool exceptionThrown = false;
-                    try {
-                        spreadsheet.deleteCellContentAt(SpreadsheetCellCoordinates(k,l));
-                    }
-                    catch (const std::out_of_range& e) {
-                        exceptionThrown = true;
-                    }
                     if ( k <= numberOfColumns && l <= numberOfRows) {
-                        EXPECT_FALSE(exceptionThrown);
+                        EXPECT_NO_THROW(spreadsheet.deleteCellContentAt(SpreadsheetCellCoordinates(k,l)));
                     }
                     else {
-                        EXPECT_TRUE(exceptionThrown);
+                        EXPECT_THROW(spreadsheet.deleteCellContentAt(SpreadsheetCellCoordinates(k,l)),std::out_of_range);
                     }
                 }
             }
@@ -110,18 +96,11 @@ TEST(Spreadsheet,getCellAsTextAt_out_of_range_exception) {
             const Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
             for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
                 for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
-                    bool exceptionThrown = false;
-                    try {
-                        spreadsheet.getCellAsTextAt(SpreadsheetCellCoordinates(k,l));
-                    }
-                    catch (const std::out_of_range& e) {
-                        exceptionThrown = true;
-                    }
                     if ( k <= numberOfColumns && l <= numberOfRows) {
-                        EXPECT_FALSE(exceptionThrown);
+                        EXPECT_NO_THROW(spreadsheet.getCellAsTextAt(SpreadsheetCellCoordinates(k,l)));
                     }
                     else {
-                        EXPECT_TRUE(exceptionThrown);
+                        EXPECT_THROW(spreadsheet.getCellAsTextAt(SpreadsheetCellCoordinates(k,l)),std::out_of_range);
                     }
                 }
             }
@@ -142,19 +121,19 @@ TEST(Spreadsheet,getCellAsNumericValueAt_out_of_range_exception) {
             Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
             for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
                 for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
-                    bool exceptionThrown = false;
-                    try {
-                        spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),123.456);
-                        spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(k,l));
-                    }
-                    catch (const std::out_of_range& e) {
-                        exceptionThrown = true;
-                    }
                     if ( k <= numberOfColumns && l <= numberOfRows) {
-                        EXPECT_FALSE(exceptionThrown);
+                        EXPECT_NO_THROW(
+                            spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),123.456);
+                            spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(k,l));
+                        );
                     }
                     else {
-                        EXPECT_TRUE(exceptionThrown);
+                        EXPECT_THROW(
+                            spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),123.456);
+                            spreadsheet.getCellAsNumericValueAt(SpreadsheetCellCoordinates(k,l));
+                            ,
+                            std::out_of_range
+                        );
                     }
                 }
             }
@@ -175,18 +154,11 @@ TEST(Spreadsheet,setValueAt__double__out_of_range_exception) {
             Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
             for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
                 for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
-                    bool exceptionThrown = false;
-                    try {
-                        spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),0.5);
-                    }
-                    catch (const std::out_of_range& e) {
-                        exceptionThrown = true;
-                    }
                     if ( k <= numberOfColumns && l <= numberOfRows) {
-                        EXPECT_FALSE(exceptionThrown);
+                        EXPECT_NO_THROW(spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),0.5));
                     }
                     else {
-                        EXPECT_TRUE(exceptionThrown);
+                        EXPECT_THROW(spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),0.5),std::out_of_range);
                     }
                 }
             }
@@ -207,18 +179,11 @@ TEST(Spreadsheet,setValueAt__string__out_of_range_exception) {
             Spreadsheet spreadsheet(numberOfColumns,numberOfRows);
             for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
                 for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
-                    bool exceptionThrown = false;
-                    try {
-                        spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),std::string("string"));
-                    }
-                    catch (const std::out_of_range& e) {
-                        exceptionThrown = true;
-                    }
                     if ( k <= numberOfColumns && l <= numberOfRows) {
-                        EXPECT_FALSE(exceptionThrown);
+                        EXPECT_NO_THROW(spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),std::string("string")));
                     }
                     else {
-                        EXPECT_TRUE(exceptionThrown);
+                        EXPECT_THROW(spreadsheet.setValueAt(SpreadsheetCellCoordinates(k,l),std::string("string")),std::out_of_range);
                     }
                 }
             }
@@ -327,8 +292,7 @@ TEST(Spreadsheet,setFunctionAt__sum__invalid_argument_exception_after_circular_r
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    bool exceptionThrown = false;
-    try {
+    EXPECT_THROW(
         spreadsheet.setFunctionAt(
             SpreadsheetCellCoordinates(2,1),
             Spreadsheet::Function::sum,
@@ -337,12 +301,9 @@ TEST(Spreadsheet,setFunctionAt__sum__invalid_argument_exception_after_circular_r
                 SpreadsheetCellCoordinates(2,1), //These coordinates are the problem
                 SpreadsheetCellCoordinates(3,1)
             });
-    }
-    catch (const std::invalid_argument& e) {
-        exceptionThrown = true;
-    }
-
-    EXPECT_TRUE(exceptionThrown);
+        ,
+        std::invalid_argument
+    );
 }
 
 TEST(Spreadsheet,setFunctionAt__avg__invalid_argument_exception_after_circular_reference) {
@@ -350,8 +311,7 @@ TEST(Spreadsheet,setFunctionAt__avg__invalid_argument_exception_after_circular_r
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    bool exceptionThrown = false;
-    try {
+    EXPECT_THROW(
         spreadsheet.setFunctionAt(
             SpreadsheetCellCoordinates(2,1),
             Spreadsheet::Function::avg,
@@ -360,12 +320,9 @@ TEST(Spreadsheet,setFunctionAt__avg__invalid_argument_exception_after_circular_r
                 SpreadsheetCellCoordinates(2,1), //These coordinates are the problem
                 SpreadsheetCellCoordinates(3,1)
             });
-    }
-    catch (const std::invalid_argument& e) {
-        exceptionThrown = true;
-    }
-
-    EXPECT_TRUE(exceptionThrown);
+            ,
+            std::invalid_argument
+    );
 }
 
 TEST(Spreadsheet,setFunctionAt__min__invalid_argument_exception_after_circular_reference) {
@@ -373,8 +330,7 @@ TEST(Spreadsheet,setFunctionAt__min__invalid_argument_exception_after_circular_r
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    bool exceptionThrown = false;
-    try {
+    EXPECT_THROW(
         spreadsheet.setFunctionAt(
             SpreadsheetCellCoordinates(2,1),
             Spreadsheet::Function::min,
@@ -383,12 +339,9 @@ TEST(Spreadsheet,setFunctionAt__min__invalid_argument_exception_after_circular_r
                 SpreadsheetCellCoordinates(2,1), //These coordinates are the problem
                 SpreadsheetCellCoordinates(3,1)
             });
-    }
-    catch (const std::invalid_argument& e) {
-        exceptionThrown = true;
-    }
-
-    EXPECT_TRUE(exceptionThrown);
+        ,
+        std::invalid_argument
+    );
 }
 
 TEST(Spreadsheet,setFunctionAt__max__invalid_argument_exception_after_circular_reference) {
@@ -396,8 +349,7 @@ TEST(Spreadsheet,setFunctionAt__max__invalid_argument_exception_after_circular_r
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(1,1),1.0);
     spreadsheet.setValueAt(SpreadsheetCellCoordinates(3,1),2.0);
 
-    bool exceptionThrown = false;
-    try {
+    EXPECT_THROW(
         spreadsheet.setFunctionAt(
             SpreadsheetCellCoordinates(2,1),
             Spreadsheet::Function::max,
@@ -406,12 +358,9 @@ TEST(Spreadsheet,setFunctionAt__max__invalid_argument_exception_after_circular_r
                 SpreadsheetCellCoordinates(2,1), //These coordinates are the problem
                 SpreadsheetCellCoordinates(3,1)
             });
-    }
-    catch (const std::invalid_argument& e) {
-        exceptionThrown = true;
-    }
-
-    EXPECT_TRUE(exceptionThrown);
+            ,
+            std::invalid_argument
+    );
 }
 
 TEST(Spreadsheet,setFunctionAt__sum__out_of_range_exception__function_cell) {
@@ -426,21 +375,23 @@ TEST(Spreadsheet,setFunctionAt__sum__out_of_range_exception__function_cell) {
 
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
-            bool exceptionThrown = false;
-            try {
-                spreadsheet.setFunctionAt(
-                    SpreadsheetCellCoordinates(k,l),
-                    Spreadsheet::Function::sum,
-                    {});
-            }
-            catch (const std::out_of_range& e) {
-                exceptionThrown = true;
-            }
             if ( k <= numberOfColumns && l <= numberOfRows) {
-                EXPECT_FALSE(exceptionThrown);
+                EXPECT_NO_THROW(
+                    spreadsheet.setFunctionAt(
+                        SpreadsheetCellCoordinates(k,l),
+                        Spreadsheet::Function::sum,
+                        {});
+                );
             }
             else {
-                EXPECT_TRUE(exceptionThrown);
+                EXPECT_THROW(
+                    spreadsheet.setFunctionAt(
+                        SpreadsheetCellCoordinates(k,l),
+                        Spreadsheet::Function::sum,
+                        {});
+                    ,
+                    std::out_of_range
+                );
             }
         }
     }
@@ -459,24 +410,29 @@ TEST(Spreadsheet,setFunctionAt__avg__out_of_range_exception__function_cell) {
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             if ( ! ( ( k==1 && l==1 ) || ( k==3 && l==1 ) ) ) {
-                bool exceptionThrown = false;
-                try {
-                    spreadsheet.setFunctionAt(
-                        SpreadsheetCellCoordinates(k,l),
-                        Spreadsheet::Function::avg,
-                        {
-                            SpreadsheetCellCoordinates(1,1),
-                            SpreadsheetCellCoordinates(3,1)
-                        });
-                }
-                catch (const std::out_of_range& e) {
-                    exceptionThrown = true;
-                }
                 if ( k <= numberOfColumns && l <= numberOfRows) {
-                    EXPECT_FALSE(exceptionThrown);
+                    EXPECT_NO_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(k,l),
+                            Spreadsheet::Function::avg,
+                            {
+                                SpreadsheetCellCoordinates(1,1),
+                                SpreadsheetCellCoordinates(3,1)
+                            });
+                    );
                 }
                 else {
-                    EXPECT_TRUE(exceptionThrown);
+                    EXPECT_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(k,l),
+                            Spreadsheet::Function::avg,
+                            {
+                                SpreadsheetCellCoordinates(1,1),
+                                SpreadsheetCellCoordinates(3,1)
+                            });
+                        ,
+                        std::out_of_range
+                    );
                 }
             }
         }
@@ -496,24 +452,29 @@ TEST(Spreadsheet,setFunctionAt__min__out_of_range_exception__function_cell) {
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             if ( ! ( ( k==1 && l==1 ) || ( k==3 && l==1 ) ) ) {
-                bool exceptionThrown = false;
-                try {
-                    spreadsheet.setFunctionAt(
-                        SpreadsheetCellCoordinates(k,l),
-                        Spreadsheet::Function::min,
-                        {
-                            SpreadsheetCellCoordinates(1,1),
-                            SpreadsheetCellCoordinates(3,1)
-                        });
-                }
-                catch (const std::out_of_range& e) {
-                    exceptionThrown = true;
-                }
                 if ( k <= numberOfColumns && l <= numberOfRows) {
-                    EXPECT_FALSE(exceptionThrown);
+                    EXPECT_NO_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(k,l),
+                            Spreadsheet::Function::min,
+                            {
+                                SpreadsheetCellCoordinates(1,1),
+                                SpreadsheetCellCoordinates(3,1)
+                            });
+                    );
                 }
                 else {
-                    EXPECT_TRUE(exceptionThrown);
+                    EXPECT_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(k,l),
+                            Spreadsheet::Function::min,
+                            {
+                                SpreadsheetCellCoordinates(1,1),
+                                SpreadsheetCellCoordinates(3,1)
+                            });
+                            ,
+                            std::out_of_range
+                    );
                 }
             }
         }
@@ -533,24 +494,29 @@ TEST(Spreadsheet,setFunctionAt__max__out_of_range_exception__function_cell) {
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             if ( ! ( ( k==1 && l==1 ) || ( k==3 && l==1 ) ) ) {
-                bool exceptionThrown = false;
-                try {
-                    spreadsheet.setFunctionAt(
-                        SpreadsheetCellCoordinates(k,l),
-                        Spreadsheet::Function::max,
-                        {
-                            SpreadsheetCellCoordinates(1,1),
-                            SpreadsheetCellCoordinates(3,1)
-                        });
-                }
-                catch (const std::out_of_range& e) {
-                    exceptionThrown = true;
-                }
                 if ( k <= numberOfColumns && l <= numberOfRows) {
-                    EXPECT_FALSE(exceptionThrown);
+                    EXPECT_NO_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(k,l),
+                            Spreadsheet::Function::max,
+                            {
+                                SpreadsheetCellCoordinates(1,1),
+                                SpreadsheetCellCoordinates(3,1)
+                            });
+                    );
                 }
                 else {
-                    EXPECT_TRUE(exceptionThrown);
+                    EXPECT_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(k,l),
+                            Spreadsheet::Function::max,
+                            {
+                                SpreadsheetCellCoordinates(1,1),
+                                SpreadsheetCellCoordinates(3,1)
+                            });
+                        ,
+                        std::out_of_range
+                    );
                 }
             }
         }
@@ -570,21 +536,23 @@ TEST(Spreadsheet,setFunctionAt__sum__out_of_range_exception__function_arguments)
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             if ( ! ( k==1 && l==1 ) ) {
-                bool exceptionThrown = false;
-                try {
-                    spreadsheet.setFunctionAt(
-                        SpreadsheetCellCoordinates(1,1),
-                        Spreadsheet::Function::sum,
-                        {SpreadsheetCellCoordinates(k,l)});
-                }
-                catch (const std::out_of_range& e) {
-                    exceptionThrown = true;
-                }
                 if ( k <= numberOfColumns && l <= numberOfRows) {
-                    EXPECT_FALSE(exceptionThrown);
+                    EXPECT_NO_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::sum,
+                            {SpreadsheetCellCoordinates(k,l)});
+                            );
                 }
                 else {
-                    EXPECT_TRUE(exceptionThrown);
+                    EXPECT_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::sum,
+                            {SpreadsheetCellCoordinates(k,l)});
+                        ,
+                        std::out_of_range
+                    );
                 }
             }
         }
@@ -610,21 +578,23 @@ TEST(Spreadsheet,setFunctionAt__avg__out_of_range_exception__function_arguments)
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             if ( ! ( k==1 && l==1 ) ) {
-                bool exceptionThrown = false;
-                try {
-                    spreadsheet.setFunctionAt(
-                        SpreadsheetCellCoordinates(1,1),
-                        Spreadsheet::Function::avg,
-                        {SpreadsheetCellCoordinates(k,l)});
-                }
-                catch (const std::out_of_range& e) {
-                    exceptionThrown = true;
-                }
                 if ( k <= numberOfColumns && l <= numberOfRows) {
-                    EXPECT_FALSE(exceptionThrown);
+                    EXPECT_NO_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::avg,
+                            {SpreadsheetCellCoordinates(k,l)});
+                    );
                 }
                 else {
-                    EXPECT_TRUE(exceptionThrown);
+                    EXPECT_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::avg,
+                            {SpreadsheetCellCoordinates(k,l)});
+                        ,
+                        std::out_of_range
+                    );
                 }
             }
         }
@@ -644,21 +614,23 @@ TEST(Spreadsheet,setFunctionAt__min__out_of_range_exception__function_arguments)
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             if ( ! ( k==1 && l==1 ) ) {
-                bool exceptionThrown = false;
-                try {
-                    spreadsheet.setFunctionAt(
-                        SpreadsheetCellCoordinates(1,1),
-                        Spreadsheet::Function::min,
-                        {SpreadsheetCellCoordinates(k,l)});
-                }
-                catch (const std::out_of_range& e) {
-                    exceptionThrown = true;
-                }
                 if ( k <= numberOfColumns && l <= numberOfRows) {
-                    EXPECT_FALSE(exceptionThrown);
+                    EXPECT_NO_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::min,
+                            {SpreadsheetCellCoordinates(k,l)});
+                    );
                 }
                 else {
-                    EXPECT_TRUE(exceptionThrown);
+                    EXPECT_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::min,
+                            {SpreadsheetCellCoordinates(k,l)});
+                            ,
+                            std::out_of_range
+                    );
                 }
             }
         }
@@ -678,21 +650,23 @@ TEST(Spreadsheet,setFunctionAt__max__out_of_range_exception__function_arguments)
     for (std::size_t k = 1; k <= numberOfColumns + columnsIndexesOuterRange; ++k) {
         for (std::size_t l = 1; l <= numberOfRows + rowsIndexesOuterRange; ++l) {
             if ( ! ( k==1 && l==1 ) ) {
-                bool exceptionThrown = false;
-                try {
-                    spreadsheet.setFunctionAt(
-                        SpreadsheetCellCoordinates(1,1),
-                        Spreadsheet::Function::max,
-                        {SpreadsheetCellCoordinates(k,l)});
-                }
-                catch (const std::out_of_range& e) {
-                    exceptionThrown = true;
-                }
                 if ( k <= numberOfColumns && l <= numberOfRows) {
-                    EXPECT_FALSE(exceptionThrown);
+                    EXPECT_NO_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::max,
+                            {SpreadsheetCellCoordinates(k,l)});
+                    );
                 }
                 else {
-                    EXPECT_TRUE(exceptionThrown);
+                    EXPECT_THROW(
+                        spreadsheet.setFunctionAt(
+                            SpreadsheetCellCoordinates(1,1),
+                            Spreadsheet::Function::max,
+                            {SpreadsheetCellCoordinates(k,l)});
+                        ,
+                        std::out_of_range
+                    );
                 }
             }
         }
